@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ziv&#39;s Blog</title>
+  <subtitle>生命本没有意义，而我要做点儿有意义的事！</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://zivlhoo.github.io/"/>
+  <updated>2016-11-23T15:49:02.000Z</updated>
+  <id>http://zivlhoo.github.io/</id>
+  
+  <author>
+    <name>Ziv Hoo</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ios&amp;android 录音转mp3</title>
+    <link href="http://zivlhoo.github.io/2016/11/23/record/"/>
+    <id>http://zivlhoo.github.io/2016/11/23/record/</id>
+    <published>2016-11-23T15:48:16.000Z</published>
+    <updated>2016-11-23T15:49:02.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Github搭建Blog</title>
+    <link href="http://zivlhoo.github.io/2016/11/23/CreateBlog/"/>
+    <id>http://zivlhoo.github.io/2016/11/23/CreateBlog/</id>
+    <published>2016-11-23T15:35:48.000Z</published>
+    <updated>2016-11-23T15:41:21.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="Blog" scheme="http://zivlhoo.github.io/tags/Blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac OSX 实用命令</title>
+    <link href="http://zivlhoo.github.io/2016/01/07/MacOSXCommand/"/>
+    <id>http://zivlhoo.github.io/2016/01/07/MacOSXCommand/</id>
+    <published>2016-01-07T15:44:16.000Z</published>
+    <updated>2016-11-23T15:34:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="端口占用">端口占用</h3><h4 id="lsof">lsof</h4><p>通过list open file命令可以查看到当前打开文件，在Unix中所有事物都是以文件形式存在，包括网络连接及硬件设备。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -<span class="tag">i</span>:<span class="number">80</span></span><br></pre></td></tr></table></figure>
+<p>-i表示网络链接</p>
+<p>:80指明端口号</p>
+<p>该命令会同时列出PID，方便kill</p>
+<h4 id="kill">kill</h4><p>kill命令用来终止一个进程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> <span class="number">1234</span></span><br></pre></td></tr></table></figure>
+<p>1234 表示进程PID号</p>
+<p><code>先用lsof查出占用端口号的进程，然后再用kill终止它。</code></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;端口占用&quot;&gt;端口占用&lt;/h3&gt;&lt;h4 id=&quot;lsof&quot;&gt;lsof&lt;/h4&gt;&lt;p&gt;通过list open file命令可以查看到当前打开文件，在Unix中所有事物都是以文件形式存在，包括网络连接及硬件设备。&lt;/p&gt;
+&lt;figure class=&quot;highlight
+    
+    </summary>
+    
+    
+      <category term="Mac" scheme="http://zivlhoo.github.io/tags/Mac/"/>
+    
+      <category term="端口占用" scheme="http://zivlhoo.github.io/tags/%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8/"/>
+    
+  </entry>
+  
+</feed>
