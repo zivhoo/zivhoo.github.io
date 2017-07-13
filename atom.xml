@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Ziv&#39;s Blog</title>
-  <subtitle>生命本没有意义，而我要做点儿有意义的事！</subtitle>
+  <title>我是谁Blog</title>
+  <subtitle>多思考，这个世界很有意思！！！！</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zivlhoo.github.io/"/>
@@ -9,7 +9,7 @@
   <id>http://zivlhoo.github.io/</id>
   
   <author>
-    <name>Ziv Hoo</name>
+    <name>我是谁</name>
     
   </author>
   

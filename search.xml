@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[ios&android 录音转mp3]]></title>
+      <url>/2016/11/23/record/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Github搭建Blog]]></title>
+      <url>/2016/11/23/CreateBlog/</url>
+      <content type="html"></content>
+      
+        
+        <tags>
+            
+            <tag> Blog </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mac OSX 实用命令]]></title>
+      <url>/2016/01/07/MacOSXCommand/</url>
+      <content type="html"><![CDATA[<h3 id="端口占用">端口占用</h3><h4 id="lsof">lsof</h4><p>通过list open file命令可以查看到当前打开文件，在Unix中所有事物都是以文件形式存在，包括网络连接及硬件设备。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -<span class="tag">i</span>:<span class="number">80</span></span><br></pre></td></tr></table></figure>
+<p>-i表示网络链接</p>
+<p>:80指明端口号</p>
+<p>该命令会同时列出PID，方便kill</p>
+<h4 id="kill">kill</h4><p>kill命令用来终止一个进程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> <span class="number">1234</span></span><br></pre></td></tr></table></figure>
+<p>1234 表示进程PID号</p>
+<p><code>先用lsof查出占用端口号的进程，然后再用kill终止它。</code></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> Mac </tag>
+            
+            <tag> 端口占用 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>
