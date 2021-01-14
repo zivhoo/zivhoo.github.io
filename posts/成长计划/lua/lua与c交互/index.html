@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title> | </title><meta name="Description" content="This is My New Hugo Site"><meta property="og:title" content="" />
+<meta property="og:description" content="title: Lua与C/C&#43;&#43;交互 date: 2020-11-04 12:04:00 tags: Lua C&#43;&#43; categories: Lua
+ C调用Lua 首先读取lua原文件，然后将要调用的lua函数压入栈中，之后再将函数参数依次压入栈中，最后使用函数lua_pcall调用lua函数，另外lua函数返回值会被压入栈中。
+定义Lua local Test = {}function Test:waitForCppCall(name, age)print(name)print(age)return string.format(&quot;Hello I&#39;m %s %d years old.&quot;,name,age)endreturn Test调用Lua代码  auto L = luaL_newstate();luaL_openlibs(L);// dofile会将代码块中的返回值压入栈luaL_dofile(L,&quot;../lua/main.lua&quot;);// 堆栈情况{table(Test)}lua_getfield(L,1,&quot;waitForCppCall&quot;);// 堆栈情况{table(Test),waitForCppCall()}// lua的函数用`：`形式定义的，这里还需要将table传入lua_pushvalue(L,1);// 堆栈情况{table(Test),waitForCppCall(),table(Test)}lua_pushstring(L,&quot;Sean&quot;);// 堆栈情况{table(Test),waitForCppCall(),table(Test), &quot;Sean&quot;}lua_pushnumber(L,20);// 堆栈情况{table(Test),waitForCppCall(),table(Test), &quot;Sean&quot;, 20}lua_pcall(L,3,1,0);// 堆栈情况{table(Test),[函数返回值1,函数返回值2,...]}lua_close(L);Lua调用C 定义Lua可调用的函数 lua调用的c/c&#43;&#43;函数必须满足
+static int add(lua_State *L){int n = lua_gettop(L);cout &lt;&lt; &quot;参数个数：&quot; &lt;&lt; n &lt;&lt; endl;double sum = 0;for (size_t i = 1; i &lt;= n; i&#43;&#43;){double d = lua_tonumber(L, i);cout &lt;&lt; &quot;第&quot; &lt;&lt; i &lt;&lt; &quot;个参数：&quot; &lt;&lt; d &lt;&lt; endl;sum &#43;= d;}lua_pushnumber(L, sum);lua_pushstring(L, &quot;我就测试一下第二返回值。&quot;);return 2;}注册函数到lua解释器中 static const struct luaL_Reg reg[] = {{&quot;add&quot;, add},{NULL, NULL},};LUALIB_API int luaopen_fun(lua_State *L){luaL_newlib(L, reg);return 1;}luaL_requiref(L,&quot;ModuleName&quot;, luaopen_fun, 1);调用C/C&#43;&#43;函数 print(ModuleName." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" />
+<meta property="og:image" content="http://huxfhk.github.io/logo.png"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://huxfhk.github.io/logo.png"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="title: Lua与C/C&#43;&#43;交互 date: 2020-11-04 12:04:00 tags: Lua C&#43;&#43; categories: Lua
+ C调用Lua 首先读取lua原文件，然后将要调用的lua函数压入栈中，之后再将函数参数依次压入栈中，最后使用函数lua_pcall调用lua函数，另外lua函数返回值会被压入栈中。
+定义Lua local Test = {}function Test:waitForCppCall(name, age)print(name)print(age)return string.format(&quot;Hello I&#39;m %s %d years old.&quot;,name,age)endreturn Test调用Lua代码  auto L = luaL_newstate();luaL_openlibs(L);// dofile会将代码块中的返回值压入栈luaL_dofile(L,&quot;../lua/main.lua&quot;);// 堆栈情况{table(Test)}lua_getfield(L,1,&quot;waitForCppCall&quot;);// 堆栈情况{table(Test),waitForCppCall()}// lua的函数用`：`形式定义的，这里还需要将table传入lua_pushvalue(L,1);// 堆栈情况{table(Test),waitForCppCall(),table(Test)}lua_pushstring(L,&quot;Sean&quot;);// 堆栈情况{table(Test),waitForCppCall(),table(Test), &quot;Sean&quot;}lua_pushnumber(L,20);// 堆栈情况{table(Test),waitForCppCall(),table(Test), &quot;Sean&quot;, 20}lua_pcall(L,3,1,0);// 堆栈情况{table(Test),[函数返回值1,函数返回值2,...]}lua_close(L);Lua调用C 定义Lua可调用的函数 lua调用的c/c&#43;&#43;函数必须满足
+static int add(lua_State *L){int n = lua_gettop(L);cout &lt;&lt; &quot;参数个数：&quot; &lt;&lt; n &lt;&lt; endl;double sum = 0;for (size_t i = 1; i &lt;= n; i&#43;&#43;){double d = lua_tonumber(L, i);cout &lt;&lt; &quot;第&quot; &lt;&lt; i &lt;&lt; &quot;个参数：&quot; &lt;&lt; d &lt;&lt; endl;sum &#43;= d;}lua_pushnumber(L, sum);lua_pushstring(L, &quot;我就测试一下第二返回值。&quot;);return 2;}注册函数到lua解释器中 static const struct luaL_Reg reg[] = {{&quot;add&quot;, add},{NULL, NULL},};LUALIB_API int luaopen_fun(lua_State *L){luaL_newlib(L, reg);return 1;}luaL_requiref(L,&quot;ModuleName&quot;, luaopen_fun, 1);调用C/C&#43;&#43;函数 print(ModuleName."/>
+<meta name="application-name" content="uBlogger">
+<meta name="apple-mobile-web-app-title" content="uBlogger"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" /><link rel="prev" href="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/tcpip/" /><link rel="next" href="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/huxfhk.github.io\/posts\/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92\/lua\/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92\/"
+        },"genre": "posts","wordCount":  261 ,
+        "url": "http:\/\/huxfhk.github.io\/posts\/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92\/lua\/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My New Hugo Site" class="header-logo"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My New Hugo Site" class="header-logo"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="关于">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main"><div class="container content-article  theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">目录</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><div class="header-post">
+        <div class="post-title">
+
+            <div class="post-all-meta">
+            <div class="breadcrumbs">
+    <a href="/">主页 </a>/ <a href="/">  </a>
+</div>
+            <h1 class="single-title animated flipInX"></h1><div class="post-meta">
+                <div class="post-meta-line">&nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time class="timeago" datetime="0001-01-01">0001-01-01</time>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 261 字
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟</div>
+            </div>
+        </div>
+
+
+    </div>
+
+    </div>
+
+        <article class="single toc-start">
+
+        <div class="content-block content-block-first content-block-position">
+
+        <div class="post"><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#c调用lua">C调用Lua</a>
+      <ul>
+        <li><a href="#定义lua">定义Lua</a></li>
+        <li><a href="#调用lua代码">调用Lua代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#lua调用c">Lua调用C</a>
+      <ul>
+        <li><a href="#定义lua可调用的函数">定义Lua可调用的函数</a></li>
+        <li><a href="#注册函数到lua解释器中">注册函数到lua解释器中</a></li>
+        <li><a href="#调用cc函数">调用C/C++函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#类型对应关系">类型对应关系</a></li>
+    <li><a href="#常用函数">常用函数</a></li>
+    <li><a href="#lual_辅助库">luaL_*辅助库</a></li>
+  </ul>
+</nav></div>
+            </div><p>title: Lua与C/C++交互
+date: 2020-11-04 12:04:00
+tags: Lua C++
+categories: Lua</p>
+<hr>
+<h2 id="c调用lua">C调用Lua</h2>
+<p>首先读取lua原文件，然后将要调用的lua函数压入栈中，之后再将函数参数依次压入栈中，最后使用函数lua_pcall调用lua函数，另外lua函数返回值会被压入栈中。</p>
+<h3 id="定义lua">定义Lua</h3>
+<pre><code>local Test = {}
+
+function Test:waitForCppCall(name, age)
+    print(name)
+    print(age)
+    
+    return string.format(&quot;Hello I'm %s %d years old.&quot;,name,age)
+end
+
+return Test
+</code></pre><h3 id="调用lua代码">调用Lua代码</h3>
+<pre><code>    auto L = luaL_newstate();
+    luaL_openlibs(L);
+    
+    // dofile会将代码块中的返回值压入栈
+    luaL_dofile(L,&quot;../lua/main.lua&quot;);
+    // 堆栈情况{table(Test)}
+
+    lua_getfield(L,1,&quot;waitForCppCall&quot;);
+    // 堆栈情况{table(Test),waitForCppCall()}
+
+    // lua的函数用`：`形式定义的，这里还需要将table传入
+    lua_pushvalue(L,1);
+    // 堆栈情况{table(Test),waitForCppCall(),table(Test)}
+
+    lua_pushstring(L,&quot;Sean&quot;);
+    // 堆栈情况{table(Test),waitForCppCall(),table(Test), &quot;Sean&quot;}
+
+    lua_pushnumber(L,20);
+    // 堆栈情况{table(Test),waitForCppCall(),table(Test), &quot;Sean&quot;, 20}
+
+    lua_pcall(L,3,1,0);
+    // 堆栈情况{table(Test),[函数返回值1,函数返回值2,...]}
+
+    lua_close(L);
+</code></pre><h2 id="lua调用c">Lua调用C</h2>
+<h3 id="定义lua可调用的函数">定义Lua可调用的函数</h3>
+<p>lua调用的c/c++函数必须满足</p>
+<pre><code>static int add(lua_State *L){
+    int n = lua_gettop(L);
+    cout &lt;&lt; &quot;参数个数：&quot; &lt;&lt; n &lt;&lt; endl;
+    
+    double sum = 0;
+    for (size_t i = 1; i &lt;= n; i++)
+    {
+        double d = lua_tonumber(L, i);
+        cout &lt;&lt; &quot;第&quot; &lt;&lt; i &lt;&lt; &quot;个参数：&quot;  &lt;&lt; d &lt;&lt; endl;
+        sum += d;
+    }
+
+    lua_pushnumber(L, sum);
+    lua_pushstring(L, &quot;我就测试一下第二返回值。&quot;);
+    
+    return 2;
+}
+</code></pre><h3 id="注册函数到lua解释器中">注册函数到lua解释器中</h3>
+<pre><code>static const struct luaL_Reg reg[] = {
+    {&quot;add&quot;, add},
+    {NULL, NULL},
+};
+
+LUALIB_API int luaopen_fun(lua_State *L){
+    luaL_newlib(L, reg);
+    return 1;
+}
+</code></pre><pre><code>luaL_requiref(L,&quot;ModuleName&quot;, luaopen_fun, 1);
+</code></pre><h3 id="调用cc函数">调用C/C++函数</h3>
+<pre><code>print(ModuleName.add(1,2,3,6,5,4))
+</code></pre><h2 id="类型对应关系">类型对应关系</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th>C</th>
+<th>Lua</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">nil</td>
+<td>无</td>
+<td>{value=0, tt = t_nil}</td>
+</tr>
+<tr>
+<td style="text-align:center">boolean</td>
+<td>int  非0, 0</td>
+<td>{value=非0/0， tt = t_boolean}</td>
+</tr>
+<tr>
+<td style="text-align:center">number</td>
+<td>int/float等</td>
+<td>{value=1.5, tt = t_number}</td>
+</tr>
+<tr>
+<td style="text-align:center">lightuserdata</td>
+<td>void*, int*, 各种*point</td>
+<td>{value=point, tt = t_lightuserdata}</td>
+</tr>
+<tr>
+<td style="text-align:center">string</td>
+<td>char  str[]</td>
+<td>{value=gco, tt = t_string}   gco=TString obj</td>
+</tr>
+<tr>
+<td style="text-align:center">table</td>
+<td>无</td>
+<td>{value=gco, tt = t_table}  gco=Table obj</td>
+</tr>
+<tr>
+<td style="text-align:center">userdata</td>
+<td>无</td>
+<td>{value=gco, tt = t_udata} gco=Udata obj</td>
+</tr>
+<tr>
+<td style="text-align:center">closure</td>
+<td>无</td>
+<td>{value=gco, tt = t_function} gco=Closure obj</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用函数">常用函数</h2>
+<ul>
+<li>
+<p>lua_gettop(lua_State *L)</p>
+<p>返回栈顶索引（即栈长度）</p>
+</li>
+<li>
+<p>lua_settop (lua_State *L, int idx)
+将栈顶设置为一个指定的位置，即修改栈中元素的数量。如果值比原栈顶高，则高的部分nil补足，如果值比原栈低，则原栈高出的部分舍弃。所以可以用lua_settop(L, 0)来清空栈。</p>
+</li>
+<li>
+<p>lua_close</p>
+</li>
+<li>
+<p>lua_register</p>
+</li>
+<li>
+<p>lua_getglobal(lua_State *L, const char *name)</p>
+<p>把全局变量 name 里的值压栈，然后由Lua去寻找变量name的值，并将变量name的值返回栈顶（替换name）</p>
+</li>
+<li>
+<p>lua_getfield()</p>
+</li>
+<li>
+<p>lua_setfield()</p>
+<p>获取或者设置表中的值</p>
+</li>
+<li>
+<p>lua_pcall(lua_State *L, int nargs, int nresults, int msgh)
+依次将函数参数和函数从栈中弹出，然后调用函数，并把最后函数的返回值压入栈中。</p>
+</li>
+</ul>
+<h2 id="lual_辅助库">luaL_*辅助库</h2>
+<pre><code>+ luaL_newstate
++ luaL_openlibs
++ luaL_dofile
+
++ lua_push*
++ lua_to*
++ lua_createtable</code></pre>
+</div>
+
+            <div class="post"><div class="post-info-share">
+    <span><a class="share-icon share-twitter" href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title="" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a class="share-icon share-facebook" href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/"><i class="fab fa-facebook-square fa-fw"></i></a><a class="share-icon share-whatsapp" href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title="" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a class="share-icon share-line" href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a class="share-icon share-weibo" href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title=""><i class="fab fa-weibo fa-fw"></i></a><a class="share-icon share-myspace" href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title="" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a class="share-icon share-blogger" href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title="" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a class="share-icon share-evernote" href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title=""><i class="fab fa-evernote fa-fw"></i></a></span>
+</div><div class="post-footer" id="post-footer"><div class="post-navigation"><div class="post-nav-box nav-box-prev">
+            <a class="nav-box" href="/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/tcpip/"><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"></path></svg></span><div style="text-align: right;padding-left: 10px"><div class="nav-text-h">下一篇</div><span class="nav-text"></span></div></a>
+        </div>
+        <div class="post-nav-box nav-box-next">
+            <a class="nav-box" href="/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/"><div style="padding-right: 10px"><div class="nav-text-h">下一篇</div><span class="nav-text"></span></div><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"></path></svg></span></a>
+        </div></div></div>
+</div>
+        </div>
+    <div id="toc-final"></div>
+    </article><div class="page single comments content-block-position"><div id="comments"></div></div></div></main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.80.0">Hugo</a> 强力驱动 | 主题 - <a href="https://ublogger.netlify.app/?utm_source=http://huxfhk.github.io/&utm_medium=footer&utm_campaign=config&utm_term=1.2.0" target="_blank" title="uBlogger 1.2.0"><i class="fas fa-pencil-alt fa-fw"></i> uBlogger</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span>2019 - 2021</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30}};</script><script src="/js/theme.min.js"></script><script src="/js/jquery-3.5.1.min.js"></script></body>
+</html>

@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title> | </title><meta name="Description" content="This is My New Hugo Site"><meta property="og:title" content="" />
+<meta property="og:description" content="title: Unity C#基础 tag: Unity
+ GameObject 可以new的对象 https://docs.unity3d.com/cn/2020.1/ScriptReference/GameObject.html
+继承成员 Public变量  hideFlags 该对象应该隐藏、随场景一起保存还是由用户修改？ name 对象的名称。  Public方法  GetInstanceID 返回对象的实例ID。 ToString 返回对象的名称。  static方法  Destroy 移除GameObject、组件或资源。 DestroyImmediate 立即销毁对象 /obj/。强烈建议您改用 Destroy。 DontDestroyOnLoad 在加载新的 Scene 时，请勿销毁 Object。 FindObjectOfType 返回第一个类型为 type 的已加载的激活对象。（active=true） FindObjectsOfType Gets a list of all loaded objects of Type type.（active=true） Instantiate 克隆 original 对象并返回克隆对象。  成员 变量  activeInHierarchy 定义 GameObject 在 Scene 中是否处于活动状态。 activeSelf 此 GameObject 的本地活动状态。（只读） isStatic 获取并设置 GameObject 的 StaticEditorFlags。 layer 该游戏对象所在的层。 scene 该 GameObject 所属的场景。 sceneCullingMask Unity 用于确定在哪个场景中渲染该 GameObject 的场景剔除遮罩。 tag 此游戏对象的标签。 transform 附加到此 GameObject 的 Transform。  方法  AddComponent 将名为 className 的组件类添加到该游戏对象。 BroadcastMessage 调用此游戏对象或其任何子项中的每个 MonoBehaviour 上名为 methodName 的方法。 CompareTag 此游戏对象是否使用 tag 进行了标记？ GetComponent 如果游戏对象附加了类型为 type 的组件，则将其返回，否则返回 null。 GetComponentInChildren 使用深度首次搜索返回 GameObject 或其任何子项中类型为 type 的组件。 GetComponentInParent 获取 GameObject 或其任何父项中 Type type 的组件。 GetComponents 返回 GameObject 中类型为 type 的所有组件。 GetComponentsInChildren 返回 GameObject 或其任何子项中类型为 type 的所有组件。 GetComponentsInParent 返回 GameObject 或其任何父项中类型为 type 的所有组件。 SendMessage 调用此游戏对象中的每个 MonoBehaviour 上名为 methodName 的方法。 SendMessageUpwards 调用此游戏对象中的每个 MonoBehaviour 上或此行为的每个父级上名为 methodName 的方法。 SetActive 根据给定的值 true 或 /false/，激活/停用 GameObject。 TryGetComponent 获取指定类型的组件（如果存在）。  static方法  CreatePrimitive 创建一个具有原始网格渲染器和相应碰撞体的游戏对象。 Find 按 name 查找 GameObject，然后返回它。（active=true） FindGameObjectsWithTag 返回标签为 tag 的活动 GameObjects 的数组。如果未找到任何 GameObject，则返回Length=0的数组。（active=true） FindWithTag 返回一个标记为 tag 的GameObject。如果未找到 GameObject，则返回 null。（active=true）  MonoBehaviour https://docs." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/unity-c#%E5%9F%BA%E7%A1%80/" />
+<meta property="og:image" content="http://huxfhk.github.io/logo.png"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://huxfhk.github.io/logo.png"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="title: Unity C#基础 tag: Unity
+ GameObject 可以new的对象 https://docs.unity3d.com/cn/2020.1/ScriptReference/GameObject.html
+继承成员 Public变量  hideFlags 该对象应该隐藏、随场景一起保存还是由用户修改？ name 对象的名称。  Public方法  GetInstanceID 返回对象的实例ID。 ToString 返回对象的名称。  static方法  Destroy 移除GameObject、组件或资源。 DestroyImmediate 立即销毁对象 /obj/。强烈建议您改用 Destroy。 DontDestroyOnLoad 在加载新的 Scene 时，请勿销毁 Object。 FindObjectOfType 返回第一个类型为 type 的已加载的激活对象。（active=true） FindObjectsOfType Gets a list of all loaded objects of Type type.（active=true） Instantiate 克隆 original 对象并返回克隆对象。  成员 变量  activeInHierarchy 定义 GameObject 在 Scene 中是否处于活动状态。 activeSelf 此 GameObject 的本地活动状态。（只读） isStatic 获取并设置 GameObject 的 StaticEditorFlags。 layer 该游戏对象所在的层。 scene 该 GameObject 所属的场景。 sceneCullingMask Unity 用于确定在哪个场景中渲染该 GameObject 的场景剔除遮罩。 tag 此游戏对象的标签。 transform 附加到此 GameObject 的 Transform。  方法  AddComponent 将名为 className 的组件类添加到该游戏对象。 BroadcastMessage 调用此游戏对象或其任何子项中的每个 MonoBehaviour 上名为 methodName 的方法。 CompareTag 此游戏对象是否使用 tag 进行了标记？ GetComponent 如果游戏对象附加了类型为 type 的组件，则将其返回，否则返回 null。 GetComponentInChildren 使用深度首次搜索返回 GameObject 或其任何子项中类型为 type 的组件。 GetComponentInParent 获取 GameObject 或其任何父项中 Type type 的组件。 GetComponents 返回 GameObject 中类型为 type 的所有组件。 GetComponentsInChildren 返回 GameObject 或其任何子项中类型为 type 的所有组件。 GetComponentsInParent 返回 GameObject 或其任何父项中类型为 type 的所有组件。 SendMessage 调用此游戏对象中的每个 MonoBehaviour 上名为 methodName 的方法。 SendMessageUpwards 调用此游戏对象中的每个 MonoBehaviour 上或此行为的每个父级上名为 methodName 的方法。 SetActive 根据给定的值 true 或 /false/，激活/停用 GameObject。 TryGetComponent 获取指定类型的组件（如果存在）。  static方法  CreatePrimitive 创建一个具有原始网格渲染器和相应碰撞体的游戏对象。 Find 按 name 查找 GameObject，然后返回它。（active=true） FindGameObjectsWithTag 返回标签为 tag 的活动 GameObjects 的数组。如果未找到任何 GameObject，则返回Length=0的数组。（active=true） FindWithTag 返回一个标记为 tag 的GameObject。如果未找到 GameObject，则返回 null。（active=true）  MonoBehaviour https://docs."/>
+<meta name="application-name" content="uBlogger">
+<meta name="apple-mobile-web-app-title" content="uBlogger"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/unity-c#%E5%9F%BA%E7%A1%80/" /><link rel="prev" href="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/%E5%8A%A8%E7%94%BB/" /><link rel="next" href="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/ui/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/huxfhk.github.io\/posts\/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92\/unity\/unity-c#%E5%9F%BA%E7%A1%80\/"
+        },"genre": "posts","wordCount":  1137 ,
+        "url": "http:\/\/huxfhk.github.io\/posts\/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92\/unity\/unity-c#%E5%9F%BA%E7%A1%80\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My New Hugo Site" class="header-logo"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My New Hugo Site" class="header-logo"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="关于">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main"><div class="container content-article  theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">目录</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><div class="header-post">
+        <div class="post-title">
+
+            <div class="post-all-meta">
+            <div class="breadcrumbs">
+    <a href="/">主页 </a>/ <a href="/">  </a>
+</div>
+            <h1 class="single-title animated flipInX"></h1><div class="post-meta">
+                <div class="post-meta-line">&nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time class="timeago" datetime="0001-01-01">0001-01-01</time>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1137 字
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟</div>
+            </div>
+        </div>
+
+
+    </div>
+
+    </div>
+
+        <article class="single toc-start">
+
+        <div class="content-block content-block-first content-block-position">
+
+        <div class="post"><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#gameobject-可以new的对象">GameObject 可以new的对象</a>
+      <ul>
+        <li><a href="#继承成员">继承成员</a></li>
+        <li><a href="#成员">成员</a></li>
+      </ul>
+    </li>
+    <li><a href="#monobehaviour">MonoBehaviour</a>
+      <ul>
+        <li><a href="#继承成员-1">继承成员</a></li>
+        <li><a href="#自身成员">自身成员</a></li>
+      </ul>
+    </li>
+    <li><a href="#transform">TransForm</a>
+      <ul>
+        <li><a href="#继承的成员">继承的成员</a></li>
+        <li><a href="#成员-1">成员</a></li>
+      </ul>
+    </li>
+    <li><a href="#time">Time</a></li>
+    <li><a href="#input">Input</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#协程">协程</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#委托">委托</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#射线检查">射线检查</a></li>
+  </ul>
+</nav></div>
+            </div><p>title: Unity C#基础
+tag: Unity</p>
+<hr>
+<h2 id="gameobject-可以new的对象">GameObject 可以new的对象</h2>
+<p><a href="https://docs.unity3d.com/cn/2020.1/ScriptReference/GameObject.html">https://docs.unity3d.com/cn/2020.1/ScriptReference/GameObject.html</a></p>
+<h3 id="继承成员">继承成员</h3>
+<h4 id="public变量">Public变量</h4>
+<ul>
+<li>hideFlags <br>
+该对象应该隐藏、随场景一起保存还是由用户修改？</li>
+<li>name
+对象的名称。</li>
+</ul>
+<h4 id="public方法">Public方法</h4>
+<ul>
+<li>GetInstanceID <br>
+返回对象的实例ID。</li>
+<li>ToString <br>
+返回对象的名称。</li>
+</ul>
+<h4 id="static方法">static方法</h4>
+<ul>
+<li>Destroy
+移除GameObject、组件或资源。</li>
+<li>DestroyImmediate <br>
+立即销毁对象 /obj/。强烈建议您改用 Destroy。</li>
+<li>DontDestroyOnLoad <br>
+在加载新的 Scene 时，请勿销毁 Object。</li>
+<li>FindObjectOfType <br>
+返回第一个类型为 type 的已加载的激活对象。（active=true）</li>
+<li>FindObjectsOfType <br>
+Gets a list of all loaded objects of Type type.（active=true）</li>
+<li><code>Instantiate</code> <br>
+克隆 original 对象并返回克隆对象。</li>
+</ul>
+<h3 id="成员">成员</h3>
+<h4 id="变量">变量</h4>
+<ul>
+<li><code>activeInHierarchy</code>
+定义 GameObject 在 Scene 中是否处于活动状态。</li>
+<li><code>activeSelf</code>
+此 GameObject 的本地活动状态。（只读）</li>
+<li>isStatic
+获取并设置 GameObject 的 StaticEditorFlags。</li>
+<li>layer
+该游戏对象所在的层。</li>
+<li>scene
+该 GameObject 所属的场景。</li>
+<li>sceneCullingMask
+Unity 用于确定在哪个场景中渲染该 GameObject 的场景剔除遮罩。</li>
+<li>tag
+此游戏对象的标签。</li>
+<li><code>transform</code>
+附加到此 GameObject 的 Transform。</li>
+</ul>
+<h4 id="方法">方法</h4>
+<ul>
+<li>AddComponent
+将名为 className 的组件类添加到该游戏对象。</li>
+<li>BroadcastMessage
+调用此游戏对象或其任何子项中的每个 MonoBehaviour 上名为 methodName 的方法。</li>
+<li>CompareTag
+此游戏对象是否使用 tag 进行了标记？</li>
+<li>GetComponent
+如果游戏对象附加了类型为 type 的组件，则将其返回，否则返回 null。</li>
+<li>GetComponentInChildren
+使用深度首次搜索返回 GameObject 或其任何子项中类型为 type 的组件。</li>
+<li>GetComponentInParent
+获取 GameObject 或其任何父项中 Type type 的组件。</li>
+<li>GetComponents
+返回 GameObject 中类型为 type 的所有组件。</li>
+<li>GetComponentsInChildren
+返回 GameObject 或其任何子项中类型为 type 的所有组件。</li>
+<li>GetComponentsInParent
+返回 GameObject 或其任何父项中类型为 type 的所有组件。</li>
+<li>SendMessage
+调用此游戏对象中的每个 MonoBehaviour 上名为 methodName 的方法。</li>
+<li>SendMessageUpwards
+调用此游戏对象中的每个 MonoBehaviour 上或此行为的每个父级上名为 methodName 的方法。</li>
+<li>SetActive
+根据给定的值 true 或 /false/，激活/停用 GameObject。</li>
+<li>TryGetComponent
+获取指定类型的组件（如果存在）。</li>
+</ul>
+<h4 id="static方法-1">static方法</h4>
+<ul>
+<li>CreatePrimitive <br>
+创建一个具有原始网格渲染器和相应碰撞体的游戏对象。</li>
+<li>Find
+按 name 查找 GameObject，然后返回它。（active=true）</li>
+<li>FindGameObjectsWithTag
+返回标签为 tag 的活动 GameObjects 的数组。如果未找到任何 GameObject，则返回Length=0的数组。（active=true）</li>
+<li>FindWithTag
+返回一个标记为 tag 的GameObject。如果未找到 GameObject，则返回 null。（active=true）</li>
+</ul>
+<h2 id="monobehaviour">MonoBehaviour</h2>
+<p><a href="https://docs.unity3d.com/cn/2020.1/ScriptReference/MonoBehaviour.html">https://docs.unity3d.com/cn/2020.1/ScriptReference/MonoBehaviour.html</a></p>
+<h3 id="继承成员-1">继承成员</h3>
+<h4 id="public变量-1">Public变量</h4>
+<ul>
+<li>enabled
+启用的Behaviour可更新，禁用的 Behaviour 不可更新。</li>
+<li>isActiveAndEnabled
+是否已激活并启用 Behaviour？</li>
+<li><code>gameObject</code>
+此组件附加到的游戏对象。始终将组件附加到游戏对象。</li>
+<li>tag
+此游戏对象的标签。</li>
+<li><code>transform</code>
+附加到此 GameObject 的 Transform。</li>
+<li>hideFlags
+该对象应该隐藏、随场景一起保存还是由用户修改？</li>
+<li>name
+对象的名称。</li>
+</ul>
+<h4 id="public函数">Public函数</h4>
+<ul>
+<li>BroadcastMessage <br>
+调用此游戏对象或其任何子项中的每个 MonoBehaviour 上名为 methodName 的方法。</li>
+<li>CompareTag
+此游戏对象是否使用 tag 进行了标记？</li>
+<li>GetComponent <br>
+Returns the component of Type type if the GameObject has one attached, null if it doesn&rsquo;t. Will also return disabled components.</li>
+<li>GetComponentInChildren <br>
+使用深度首次搜索返回 GameObject 或其任何子项中类型为 type 的组件。</li>
+<li>GetComponentInParent <br>
+返回 GameObject 或其任何父项中类型为 type 的组件。</li>
+<li>GetComponents <br>
+返回 GameObject 中类型为 type 的所有组件。</li>
+<li>GetComponentsInChildren <br>
+返回 GameObject 或其任何子项中类型为 type 的所有组件。</li>
+<li>GetComponentsInParent <br>
+返回 GameObject 或其任何父项中类型为 type 的所有组件。</li>
+<li>SendMessage <br>
+调用此游戏对象中的每个 MonoBehaviour 上名为 methodName 的方法。</li>
+<li>SendMessageUpwards <br>
+调用此游戏对象中的每个 MonoBehaviour 上或此行为的每个父级上名为 methodName 的方法。</li>
+<li>TryGetComponent <br>
+获取指定类型的组件（如果存在）。</li>
+<li>GetInstanceID <br>
+返回对象的实例 ID。</li>
+<li>ToString <br>
+返回对象的名称。</li>
+</ul>
+<h4 id="static函数">static函数</h4>
+<ul>
+<li>Destroy <br>
+移除 GameObject、组件或资源。</li>
+<li>DestroyImmediate <br>
+立即销毁对象 /obj/。强烈建议您改用 Destroy。</li>
+<li>DontDestroyOnLoad <br>
+在加载新的 Scene 时，请勿销毁 Object。</li>
+<li>FindObjectOfType <br>
+返回第一个类型为 type 的已加载的激活对象。</li>
+<li>FindObjectsOfType <br>
+Gets a list of all loaded objects of Type type.</li>
+<li><code>Instantiate</code> <br>
+克隆 original 对象并返回克隆对象。</li>
+</ul>
+<h3 id="自身成员">自身成员</h3>
+<h4 id="变量-1">变量</h4>
+<ul>
+<li>runInEditMode
+允许 MonoBehaviour 的特定实例在编辑模式下运行（仅可在 Editor 中使用）。</li>
+<li>useGUILayout
+禁用该属性可跳过 GUI 布局阶段。</li>
+</ul>
+<h4 id="public函数-1">Public函数</h4>
+<ul>
+<li>CancelInvoke
+取消该 MonoBehaviour 上的所有 Invoke 调用。</li>
+<li>Invoke
+在time秒后调用 methodName 方法。</li>
+<li>InvokeRepeating
+在time秒后调用 methodName 方法，然后每 repeatRate 秒调用一次。</li>
+<li>IsInvoking
+是否有任何待处理的 methodName 调用？</li>
+<li><code>StartCoroutine</code>
+启动协程。</li>
+<li>StopAllCoroutines
+停止在该行为上运行的所有协同程序。</li>
+<li>StopCoroutine
+停止在该行为上运行的第一个名为 methodName 的协同程序或存储在 routine 中的协同程序。</li>
+</ul>
+<h4 id="static函数-1">static函数</h4>
+<ul>
+<li>print
+将消息记录到 Unity 控制台（与 Debug.Log 相同）。</li>
+</ul>
+<h4 id="消息">消息</h4>
+<ul>
+<li><code>Awake</code>
+场景加载时会调用所有Component的Awake方法（gameObject.active=true）如果加载时active为false，当active被设为true时Awake才被调用；组件的enable方法并不会影响Awake方法的调用。</li>
+<li><code>FixedUpdate</code>
+用于物理计算且独立于帧率的 MonoBehaviour.FixedUpdate 消息。修改时间间隔Edit一》Project Settings—〉Time—》Fixed Timestep</li>
+<li><code>LateUpdate</code>
+如果启用了 Behaviour，则所有的Update执行完毕后执行</li>
+<li>OnAnimatorIK
+用于设置动画 IK（反向运动学）的回调。</li>
+<li>OnAnimatorMove
+用于处理动画移动以修改根运动的回调。</li>
+<li>OnApplicationFocus
+当玩家获得或失去焦点时，发送给所有 GameObject。</li>
+<li>OnApplicationPause
+当应用程序暂停时，发送给所有 GameObject。</li>
+<li>OnApplicationQuit
+在应用程序退出前，发送给所有游戏对象。</li>
+<li>OnAudioFilterRead
+如果实现了 OnAudioFilterRead，Unity 将在音频 DSP 链中插入一个自定义滤波器。</li>
+<li>OnBecameInvisibleOnBecameInvisible
+在渲染器对任何摄像机都不可见时调用。</li>
+<li>OnBecameVisibleOnBecameVisible
+在渲染器变为对任意摄像机可见时调用。</li>
+<li>OnCollisionEnter
+当该碰撞体/刚体已开始接触另一个刚体/碰撞体时，调用 OnCollisionEnter。</li>
+<li>OnCollisionEnter2D
+当传入碰撞体与该对象的碰撞体接触时发送（仅限 2D 物理）。</li>
+<li>OnCollisionExit
+当该碰撞体/刚体已停止接触另一个刚体/碰撞体时，调用 OnCollisionExit。</li>
+<li>OnCollisionExit2D
+当另一个对象上的碰撞体停止接触该对象的碰撞体时发送（仅限 2D 物理）。</li>
+<li>OnCollisionStay
+对应正在接触刚体/碰撞体的每一个碰撞体/刚体，每帧调用一次 :ref::OnCollisionStay。</li>
+<li>OnCollisionStay2D
+在另一个对象上的碰撞体正在接触该对象的碰撞体时发送每个帧（仅限 2D 物理）。</li>
+<li>OnConnectedToServer
+成功连接到服务器后在客户端上调用。</li>
+<li>OnControllerColliderHit
+当该控制器在执行 Move 时撞到碰撞体时调用 OnControllerColliderHit。</li>
+<li>OnDestroy
+销毁附加的行为将导致游戏或场景收到 OnDestroy。</li>
+<li>OnDisable
+该函数在行为被禁用时调用。</li>
+<li>OnDisconnectedFromServer
+当连接丢失或与服务器断开连接时，在客户端上调用。</li>
+<li>OnDrawGizmos
+如果您想绘制能够选择并且始终绘制的辅助图标，则可以实现 OnDrawGizmos。</li>
+<li>OnDrawGizmosSelected
+如果选择了对象，则实现 OnDrawGizmosSelected 来绘制辅助图标。</li>
+<li>OnEnable
+该函数在对象变为启用和激活状态时调用。</li>
+<li>OnFailedToConnect
+出于某种原因连接尝试失败时，在客户端上调用。</li>
+<li>OnFailedToConnectToMasterServer
+在连接到 MasterServer 时发生问题的情况下，在客户端或服务器上调用。</li>
+<li>OnGUI
+系统调用 OnGUI 来渲染和处理 GUI 事件。</li>
+<li>OnJointBreak
+在附加到相同游戏对象的关节断开时调用。</li>
+<li>OnJointBreak2D
+在附加到相同游戏对象的 Joint2D 断开时调用。</li>
+<li>OnMasterServerEvent
+在从 MasterServer 报告事件时，在客户端或服务器上调用。</li>
+<li>OnMouseDown
+当用户在 Collider 上按下鼠标按钮时，将调用 OnMouseDown。</li>
+<li>OnMouseDrag
+当用户单击 Collider 并仍然按住鼠标时，将调用 OnMouseDrag。</li>
+<li>OnMouseEnter
+当鼠标进入 Collider 时调用。</li>
+<li>OnMouseExit
+当鼠标不再处于 Collider 上方时调用。</li>
+<li>OnMouseOver
+当鼠标悬停在 Collider 上时，每帧调用一次。</li>
+<li>OnMouseUp
+当用户松开鼠标按钮时，将调用 OnMouseUp。</li>
+<li>OnMouseUpAsButton
+松开鼠标时，仅当鼠标在按下时所在的 Collider 上时，才调用 OnMouseUpAsButton。</li>
+<li>OnNetworkInstantiate
+在已通过 Network.Instantiate 进行网络实例化的对象上调用。</li>
+<li>OnParticleCollision
+当粒子击中碰撞体时，将调用 OnParticleCollision。</li>
+<li>OnParticleSystemStopped
+系统中的所有粒子都死亡时，便会调用 OnParticleSystemStopped，然后将不再产生新粒子。在调用 Stop 之后，或者超过非循环系统的 Duration 属性时，将停止产生新粒子。</li>
+<li>OnParticleTrigger
+粒子系统中的任何粒子满足触发模块中的条件时，将调用 OnParticleTrigger。</li>
+<li>OnParticleUpdateJobScheduled
+调度粒子系统的内置更新作业时，会调用 OnParticleUpdateJobScheduled。</li>
+<li>OnPlayerConnected
+每当有新玩家成功连接，就在服务器上调用。</li>
+<li>OnPlayerDisconnected
+每当有玩家与服务器断开连接，就在服务器上调用。</li>
+<li>OnPostRender
+在摄像机完成场景渲染后，将调用 OnPostRender。</li>
+<li>OnPreCull
+在摄像机剔除场景前，将调用 OnPreCull。</li>
+<li>OnPreRender
+在摄像机开始渲染场景前，将调用 OnPreRender。</li>
+<li>OnRenderImageOnRenderImage
+在图像的所有渲染操作全部完成后调用。</li>
+<li>OnRenderObject
+在摄像机渲染场景后，将调用 OnRenderObject。</li>
+<li>OnSerializeNetworkView
+用于在网络视图监视的脚本中自定义变量同步。</li>
+<li>OnServerInitialized
+每当调用 Network.InitializeServer 并且完成时，对该服务器调用该函数。</li>
+<li>OnTransformChildrenChanged
+当GameObject 的变换的子项列表发生更改时，将调用该函数。</li>
+<li>OnTransformParentChanged
+当 GameObject 的变换的父属性发生更改时，将调用该函数。</li>
+<li>OnTriggerEnterGameObject
+与另一个 GameObject 碰撞时，Unity 会调用 OnTriggerEnter。</li>
+<li>OnTriggerEnter2D
+当另一个对象进入附加到该对象的触发碰撞体时发送（仅限 2D 物理）。</li>
+<li>OnTriggerExit
+当Collider other 已停止接触该触发器时调用 OnTriggerExit。</li>
+<li>OnTriggerExit2D
+当另一个对象离开附加到该对象的触发碰撞体时发送（仅限 2D 物理）。</li>
+<li>OnTriggerStay
+对于接触触发器的每一个 Collider /other/，每次物理更新调用一次 OnTriggerStay。</li>
+<li>OnTriggerStay2D
+在另一个对象位于附加到该对象的触发碰撞体之内时发送每个帧（仅限 2D 物理）。</li>
+<li>OnValidate
+加载脚本后或检视面板中的值发生更改时，将调用此函数（只能在编辑器中调用）。</li>
+<li>OnWillRenderObject
+如果对象可见并且不是 UI 元素，则为每个摄像机调用 OnWillRenderObject。</li>
+<li>Reset
+重置为默认值。</li>
+<li><code>Start</code>
+在Awake后并且第一次Update前被调用（Component.enable=true）</li>
+<li><code>Update</code>
+如果启用了 MonoBehaviour，则每帧调用 Update。</li>
+</ul>
+<h2 id="transform">TransForm</h2>
+<p><a href="https://docs.unity3d.com/cn/2020.1/ScriptReference/Transform.html">https://docs.unity3d.com/cn/2020.1/ScriptReference/Transform.html</a></p>
+<h3 id="继承的成员">继承的成员</h3>
+<h4 id="变量-2">变量</h4>
+<ul>
+<li>gameObject <br>
+此组件附加到的游戏对象。始终将组件附加到游戏对象。</li>
+<li>tag
+此游戏对象的标签。</li>
+<li>transform
+附加到此 GameObject 的 Transform。</li>
+<li>hideFlags
+该对象应该隐藏、随场景一起保存还是由用户修改？</li>
+<li>name
+对象的名称。</li>
+</ul>
+<h4 id="public方法-1">Public方法</h4>
+<ul>
+<li>BroadcastMessage
+调用此游戏对象或其任何子项中的每个 MonoBehaviour 上名为 methodName 的方法。</li>
+<li>CompareTag
+此游戏对象是否使用 tag 进行了标记？</li>
+<li>GetComponent
+Returns the component of Type type if the GameObject has one + attached, null if it doesn&rsquo;t. Will also return disabled components.</li>
+<li>GetComponentInChildren
+使用深度首次搜索返回 GameObject 或其任何子项中类型为 type 的组件。</li>
+<li>GetComponentInParent
+返回 GameObject 或其任何父项中类型为 type 的组件。</li>
+<li>GetComponents
+返回 GameObject 中类型为 type 的所有组件。</li>
+<li>GetComponentsInChildren
+返回 GameObject 或其任何子项中类型为 type 的所有组件。</li>
+<li>GetComponentsInParent
+返回 GameObject 或其任何父项中类型为 type 的所有组件。</li>
+<li>SendMessage
+调用此游戏对象中的每个 MonoBehaviour 上名为 methodName 的方法。</li>
+<li>SendMessageUpwards
+调用此游戏对象中的每个 MonoBehaviour 上或此行为的每个父级上名为 methodName 的方法。</li>
+<li>TryGetComponent
+获取指定类型的组件（如果存在）。</li>
+<li>GetInstanceID
+返回对象的实例 ID。</li>
+<li>ToString
+返回对象的名称。</li>
+</ul>
+<h4 id="static方法-2">static方法</h4>
+<ul>
+<li>Destroy <br>
+移除 GameObject、组件或资源。可以销毁GameObject连同子物体以及所有挂载的Component；也可以将Component从GameObject上移除并销毁；第二个参数为延时时间，默认为0即当前Update执行完之后执行。</li>
+<li>DestroyImmediate <br>
+立即销毁对象 /obj/。强烈建议您改用 Destroy。</li>
+<li>DontDestroyOnLoad <br>
+在加载新的 Scene 时，请勿销毁 Object。</li>
+<li>FindObjectOfType <br>
+返回第一个类型为 type 的已加载的激活对象。</li>
+<li>FindObjectsOfType <br>
+Gets a list of all loaded objects of Type type.</li>
+<li><code>Instantiate</code> <br>
+可以复制gameObject和Component 会连同关联的component或gameobject及子物体的一起复制并且属性保持一致包括active instantiateInWorldSpace位置旋转是否是相对世界空间</li>
+</ul>
+<h3 id="成员-1">成员</h3>
+<h4 id="变量-3">变量</h4>
+<ul>
+<li>childCount
+父变换具有的子项数。</li>
+<li>eulerAngles
+以欧拉角表示的旋转（以度为单位）。</li>
+<li>forward
+返回一个标准化矢量，它表示世界空间中变换的蓝轴。</li>
+<li>hasChanged
+自上次将标志设置为“false”以来，变换是否发生更改？</li>
+<li>hierarchyCapacity
+变换的层级视图数据结构的变换容量。</li>
+<li>hierarchyCount
+变换的层级视图数据结构中变换的数量。</li>
+<li>localEulerAngles
+以欧拉角表示的相对于父变换旋转的旋转（以度为单位）。</li>
+<li><code>localPosition</code>
+相对于父变换的变换位置。(即Inspector中看到的position)</li>
+<li><code>localRotation</code>
+一个 Quaternion相对于父级变换旋转的变换旋转。</li>
+<li><code>localScale</code>
+相对于 GameObjects 父对象的变换缩放。</li>
+<li>localToWorldMatrix
+将点从本地空间转换到世界空间的矩阵（只读）。</li>
+<li>lossyScale
+对象的全局缩放。（只读）</li>
+<li>parent
+变换的父级。</li>
+<li><code>position</code>
+世界空间中的变换位置。</li>
+<li>right
+世界空间中变换的红轴。</li>
+<li>root
+返回层级视图中最顶层的变换。</li>
+<li><code>rotation</code>
+一个 Quaternion，用于存储变换在世界空间中的旋转。</li>
+<li>up
+世界空间中变换的绿轴。</li>
+<li>worldToLocalMatrix
+将点从世界空间转换到本地空间的矩阵（只读）。</li>
+</ul>
+<h4 id="公共函数">公共函数</h4>
+<ul>
+<li>DetachChildren
+清除所有子项的父级。</li>
+<li>Find
+按 n 查找子项，然后返回它。不会递归查找，但是可以指定层级。</li>
+<li>GetChild
+按索引返回变换子项。</li>
+<li>GetSiblingIndex
+获取同级索引。</li>
+<li>InverseTransformDirection
+将 direction 从世界空间变换到本地空间。与 Transform.TransformDirection 相反。
++InverseTransformPoint
+将 position 从世界空间变换到本地空间。</li>
+<li>InverseTransformVector
+将 vector 从世界空间变换到本地空间。与 Transform.TransformVector 相反。</li>
+<li>IsChildOf
+该变换是否为 parent 的子项？</li>
+<li>LookAt
+旋转变换，使向前矢量指向 target 的当前位置。</li>
+<li><code>Rotate(Vector3 eulers, Space relativeTo = Space.Self)</code>
+使用 Transform.Rotate 以各种方式旋转 GameObjects。通常以欧拉角而不是四元数提供旋转。</li>
+<li><code>RotateAround(Vector3 point, Vector3 axis, float angle)</code>
+在世界坐标系统，围绕一个点point的axis轴旋转angle度</li>
+<li>SetAsFirstSibling
+将变换移动到本地变换列表的开头。</li>
+<li>SetAsLastSibling
+将变换移动到本地变换列表的末尾。</li>
+<li>SetParent
+设置变换的父级。worldPositionStays是否保留物体在世界中的位置。</li>
+<li>SetPositionAndRotation
+设置变换组件的世界空间位置和旋转。</li>
+<li>SetSiblingIndex
+设置同级索引。</li>
+<li>TransformDirection
+将 direction 从本地空间变换到世界空间。</li>
+<li>TransformPoint
+将 position 从本地空间变换到世界空间。</li>
+<li>TransformVector
+将 vector 从本地空间变换到世界空间。</li>
+<li>Translate
+根据 translation 的方向和距离移动变换。</li>
+</ul>
+<h2 id="time">Time</h2>
+<p><a href="https://docs.unity3d.com/cn/2020.1/ScriptReference/Time.html">https://docs.unity3d.com/cn/2020.1/ScriptReference/Time.html</a></p>
+<ul>
+<li>captureDeltaTime
+减慢游戏播放时间，以便在帧之间保存屏幕截图。</li>
+<li>captureFramerate
+Time.captureDeltaTime 的倒数。</li>
+<li><code>deltaTime</code>
+完成上一帧所用的时间（以秒为单位）（只读）。</li>
+<li>fixedDeltaTime
+执行物理和其他固定帧率更新（如 MonoBehaviour 的 FixedUpdate）的时间间隔（以秒为单位）。</li>
+<li>fixedTime
+最近一次 FixedUpdate 已启动的时间（只读）。此为自游戏启动以来的时间（以秒为单位）。</li>
+<li>fixedUnscaledDeltaTime
+从上一个固定帧到当前固定帧的独立于 timeScale 的时间间隔（以秒为单位）（只读）。</li>
+<li>fixedUnscaledTime
+最近一次 FixedUpdate 已启动的独立于 TimeScale 的时间（只读）。此为自游戏启动以来的时间（以秒为单位）。</li>
+<li>frameCount
+已经过的总帧数（只读）。</li>
+<li>inFixedTimeStep
+如果在固定时间步长回调（如 MonoBehaviour 的 FixedUpdate）内调用，则返回 true，否则返回 false。</li>
+<li>maximumDeltaTime
+帧可以耗用的最长时间。物理和其他固定帧率更新（如 MonoBehaviour 的 FixedUpdate）将仅在每帧的该持续时间内执行。</li>
+<li>maximumParticleDeltaTime
+帧可以在粒子更新上耗用的最长时间。如果帧耗用的时间超过该值，则将更新拆分为多个较小的更新。</li>
+<li>realtimeSinceStartup
+游戏开始以来的实际时间（只读）。</li>
+<li>smoothDeltaTime
+经过平滑处理的 Time.deltaTime（只读）。</li>
+<li>time
+该帧开始的时间（只读）。此为自游戏启动以来的时间（以秒为单位）。</li>
+<li><code>timeScale</code>
+可用于慢动作效果，当timeScale为0时，游戏就会完全暂停。timeScale并不会减缓代码的执行速度，而是改变了调用Update和FixedUpdate的时间间隔。其他的方法并不会被减慢，比如UI还可以保持交互。</li>
+<li>timeSinceLevelLoad
+该帧开始以来的时间（只读）。此为自加载上一个关卡以来的时间（以秒为单位）。</li>
+<li>unscaledDeltaTime
+从上一帧到当前帧的独立于 timeScale 的时间间隔（以秒为单位）（只读）。</li>
+<li>unscaledTime
+该帧的独立于 timeScale 的时间（只读）。此为自游戏启动以来的时间（以秒为单位）。</li>
+</ul>
+<h2 id="input">Input</h2>
+<p><a href="https://docs.unity3d.com/cn/2020.1/ScriptReference/Input.html">https://docs.unity3d.com/cn/2020.1/ScriptReference/Input.html</a></p>
+<h4 id="静态变量">静态变量</h4>
+<ul>
+<li>acceleration
+最近测量的设备在三维空间中的线性加速度。（只读）</li>
+<li>accelerationEventCount
+上一帧期间进行的加速度测量的数量。</li>
+<li>accelerationEvents
+返回上一帧期间进行的加速度测量的列表。（只读）（分配临时变量）。</li>
+<li>anyKey
+当前是否有任何键或鼠标按钮处于按下状态？（只读）</li>
+<li>anyKeyDown
+在用户按任意键或鼠标按钮后的第一帧返回 true。（只读）</li>
+<li>backButtonLeavesApp
+Back 按钮是否应该退出应用程序？仅适用于 Android、Windows Phone 或 Windows 平板电脑。</li>
+<li>compass
+用于访问罗盘的属性（仅限手持设备）。（只读）</li>
+<li>compensateSensors
+该属性控制是否应该对输入传感器补偿屏幕方向。</li>
+<li>compositionCursorPos
+IME 用于打开窗口的当前文本输入位置。</li>
+<li>compositionString
+用户键入的当前 IME 组合字符串。</li>
+<li>deviceOrientation
+操作系统报告的设备的物理方向。（只读）</li>
+<li>gyro
+返回默认陀螺仪。</li>
+<li>imeCompositionMode
+控制 IME 输入组合的启用和禁用。</li>
+<li>imeIsSelected
+用户是否选择了 IME 键盘输入源？</li>
+<li>inputString
+返回该帧输入的键盘输入。（只读）</li>
+<li>location
+用于访问设备位置的属性（仅限手持设备）。（只读）</li>
+<li>mousePosition
+The current mouse position in pixel coordinates. (Read Only).</li>
+<li>mousePresent
+指示是否检测到鼠标设备。</li>
+<li>mouseScrollDelta
+当前的鼠标滚动增量。（只读）</li>
+<li>multiTouchEnabled
+该属性指示系统是否处理多点触控。</li>
+<li>simulateMouseWithTouches
+启用/禁用通过触摸模拟鼠标操作。默认情况下，该选项已启用。</li>
+<li>stylusTouchSupported
+当设备或平台支持 Stylus Touch 时，返回 true。</li>
+<li>touchCount
+触摸次数。保证在整个帧期间不会更改。（只读）</li>
+<li>touches
+返回表示上一帧中所有触摸状态的对象列表。（只读）（分配临时变量）。</li>
+<li>touchPressureSupported
+供用户检查是否支持触摸压力的 bool 值。</li>
+<li>touchSupported
+返回当前正在运行应用程序的设备是否支持触摸输入。</li>
+</ul>
+<h4 id="静态函数">静态函数</h4>
+<ul>
+<li>GetAccelerationEvent
+返回上一帧期间进行的特定加速度测量。（不分配临时变量）。</li>
+<li>GetAxis
+返回由 axisName 标识的虚拟轴的值。</li>
+<li>GetAxisRaw
+返回由 axisName 标识的虚拟轴的值（未应用平滑过滤）。</li>
+<li><code>GetButton</code>
+当按住 buttonName 标识的虚拟按钮时，返回 true。</li>
+<li><code>GetButtonDown</code>
+在用户按下由 buttonName 标识的虚拟按钮的帧期间返回 true。</li>
+<li><code>GetButtonUp</code>
+在用户释放由 buttonName 标识的虚拟按钮的第一帧返回 true。</li>
+<li>GetJoystickNames
+获取与在输入管理器中配置的轴的索引对应的输入设备名称的列表。</li>
+<li><code>GetKey</code>
+在用户按下 name 标识的键时返回 true。</li>
+<li><code>GetKeyDown</code>
+在用户开始按下 name 标识的键的帧期间返回 true。</li>
+<li><code>GetKeyUp</code>
+在用户释放 name 标识的键的帧期间返回 true。</li>
+<li><code>GetMouseButton(int button)</code>
+返回是否按下了给定的鼠标按钮。输入参数button：0代表鼠标左键，1代表鼠标右键，2代表鼠标中键。当按下对应的鼠标按键时，这个方法返回true。只要鼠标按键按下，就会一直返回true。</li>
+<li><code>GetMouseButtonDown</code>
+鼠标按下那一帧返回true。之后如果没有抬起，后面的帧会返回false</li>
+<li><code>GetMouseButtonUp</code>
+在用户释放给定鼠标按钮的帧期间返回 true。</li>
+<li>GetTouch
+调用 Input.GetTouch 以获取 Touch 结构。</li>
+<li>IsJoystickPreconfigured
+确定 Unity 是否已预先配置某个特定的游戏杆模型。（仅限 Linux）。</li>
+<li>ResetInputAxes
+重置所有输入。调用 ResetInputAxes 后，所有轴和所有按钮都恢复为 0，并且持续一帧时长。</li>
+</ul>
+<h2 id="协程">协程</h2>
+<p>协程就像一个函数，和普通函数的不同之处是能够暂停执行并将控制权返回给Unity，然后下次在暂停的地方继续执行。yield return的位置是执行暂停并在下次执行恢复的位置。</p>
+<p>禁用MonoBehaviour时，协程会不会停止，但只有当它被明确销毁时才会停止。您可以使用MonoBehaviour.StopCoroutine和MonoBehaviour.StopAllCoroutines来停止Coroutine。当MonoBehaviour被摧毁时，协同程序也会停止。</p>
+<h4 id="yield-return可以返回的类型包括">yield return可以返回的类型包括：</h4>
+<ul>
+<li>
+<p>null，等待一帧，到下一帧再继续执行</p>
+</li>
+<li>
+<p>WaitForSecond(second)，等待一定的时间，float类型，单位是秒。<strong>注意</strong>这个会受timeScale的影响。</p>
+</li>
+<li>
+<p>WaitForEndOfFrame()，等待当前帧的结尾再执行，通常用于实现截图功能（此时所有的渲染已经完成，可以读到屏幕所有的像素信息）</p>
+</li>
+<li>
+<p>WaitForFixedUpdate()，等待下一次fixed update调用再执行</p>
+</li>
+<li>
+<p>WaitForSecondsRealtime(second)，等待一定的真实时间再执行，这个不受timeScale的影响。</p>
+</li>
+<li>
+<p>WaitUntil 等待直到<strong>委托</strong>的返回值结果为true。</p>
+</li>
+<li>
+<p>WaitWhile 暂停协程的运行，直到<strong>委托</strong>返回值为false。</p>
+</li>
+</ul>
+<h2 id="委托">委托</h2>
+<p>委托也是一种类型，就好像类是类型一样。</p>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">delegate</span> <span class="k">void</span> <span class="n">Name</span><span class="p">(</span><span class="kt">int</span> <span class="n">parameter</span><span class="p">);</span>
+</code></pre></div><p>如果一个委托中有多个方法，则每个方法都会被调用。</p>
+<p>如果委托有返回值并且在调用列表中有一个以上的方法，会发生下面的情况：</p>
+<ul>
+<li>
+<p>调用列表中最后一个方法返回的值就是委托调用返回的值</p>
+</li>
+<li>
+<p>调用列表中所有其它方法的返回值都会被忽略</p>
+</li>
+</ul>
+<h4 id="lambda">Lambda</h4>
+<ul>
+<li>
+<p>表达式的参数列表中的参数不一定需要包含类型（隐式类型），但如果委托有ref或out参数，此时必须注明类型。</p>
+</li>
+<li>
+<p>如果只有一个参数，并且是隐式类型，可以省略圆括号，否则必须有括号。</p>
+</li>
+<li>
+<p>如果没有参数，必须使用一组空的圆括号。</p>
+</li>
+</ul>
+<h2 id="射线检查">射线检查</h2>
+<p>Physics.Raycast</p>
+<p>Raycast只能检测到物体上有Collider组件的物体。</p>
+<ul>
+<li>
+<p>Ray 一条射线，从一个点发射，指向一个方向的射线。<code>有点像我们玩的激光灯</code>。下面两个重载方法的前两个参数origin和direction实际上就是用来构造这个射线的。</p>
+</li>
+<li>
+<p>maxDistance 射线的最大检测距离。虽然射线应该是无限长，但是在游戏中需要考虑性能，限定距离后可以减少检测的范围，提高运行效率</p>
+</li>
+<li>
+<p>layerMask 检测的layer，和之前学到的Camera和Light中的Layer设置应该类似。</p>
+</li>
+<li>
+<p>queryTriggerInteraction 这是一个枚举类型，设置是否检测Trigger物体。有三个值：</p>
+</li>
+<li>
+<p>UseGrobal 使用全局的Physics.queriesHitTriggers设置。这个设置可以在Edit &gt; Project Settings &gt; Physics 中<code>Queries Hit Triggers</code>设置。</p>
+</li>
+<li>
+<p>Ignore 忽略Trigger</p>
+</li>
+<li>
+<p>Collide 检测Trigger</p>
+</li>
+</ul>
+<p>RaycastHit中包含的参数有：</p>
+<ul>
+<li>
+<p>barycentricCoordinate 检测到三角面的重心坐标</p>
+</li>
+<li>
+<p>collider 射线检测到的collider，这个非常常用，因为能根据collider.gameObject获取到对应GameObject</p>
+</li>
+<li>
+<p>distance 射线发射源与检测到的位置的距离</p>
+</li>
+<li>
+<p>lightmapCoord 检测到位置的光照贴图的uv坐标</p>
+</li>
+<li>
+<p>normal 射线碰撞位置的法线</p>
+</li>
+<li>
+<p>point 射线碰撞位置的世界坐标</p>
+</li>
+<li>
+<p>rigidbody 检测到collider上的rigidbody组件，如果没有则返回null</p>
+</li>
+<li>
+<p>textureCoord 射线碰撞位置的贴图UV坐标</p>
+</li>
+<li>
+<p>textureCoord1 已废弃的属性</p>
+</li>
+<li>
+<p>textureCoord2 射线碰撞位置的贴图UV2坐标</p>
+</li>
+<li>
+<p>transform 射线碰撞物体的transform组件</p>
+</li>
+<li>
+<p>triangleIndex 射线碰撞位置三角面的顺序</p>
+</li>
+</ul>
+</div>
+
+            <div class="post"><div class="post-info-share">
+    <span><a class="share-icon share-twitter" href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/unity-c#%E5%9F%BA%E7%A1%80/" data-title="" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a class="share-icon share-facebook" href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/unity-c#%E5%9F%BA%E7%A1%80/"><i class="fab fa-facebook-square fa-fw"></i></a><a class="share-icon share-whatsapp" href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/unity-c#%E5%9F%BA%E7%A1%80/" data-title="" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a class="share-icon share-line" href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/unity-c#%E5%9F%BA%E7%A1%80/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a class="share-icon share-weibo" href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/unity-c#%E5%9F%BA%E7%A1%80/" data-title=""><i class="fab fa-weibo fa-fw"></i></a><a class="share-icon share-myspace" href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/unity-c#%E5%9F%BA%E7%A1%80/" data-title="" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a class="share-icon share-blogger" href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/unity-c#%E5%9F%BA%E7%A1%80/" data-title="" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a class="share-icon share-evernote" href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/unity-c#%E5%9F%BA%E7%A1%80/" data-title=""><i class="fab fa-evernote fa-fw"></i></a></span>
+</div><div class="post-footer" id="post-footer"><div class="post-navigation"><div class="post-nav-box nav-box-prev">
+            <a class="nav-box" href="/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/%E5%8A%A8%E7%94%BB/"><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"></path></svg></span><div style="text-align: right;padding-left: 10px"><div class="nav-text-h">下一篇</div><span class="nav-text"></span></div></a>
+        </div>
+        <div class="post-nav-box nav-box-next">
+            <a class="nav-box" href="/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/unity/ui/"><div style="padding-right: 10px"><div class="nav-text-h">下一篇</div><span class="nav-text"></span></div><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"></path></svg></span></a>
+        </div></div></div>
+</div>
+        </div>
+    <div id="toc-final"></div>
+    </article><div class="page single comments content-block-position"><div id="comments"></div></div></div></main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.80.0">Hugo</a> 强力驱动 | 主题 - <a href="https://ublogger.netlify.app/?utm_source=http://huxfhk.github.io/&utm_medium=footer&utm_campaign=config&utm_term=1.2.0" target="_blank" title="uBlogger 1.2.0"><i class="fas fa-pencil-alt fa-fw"></i> uBlogger</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span>2019 - 2021</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30}};</script><script src="/js/theme.min.js"></script><script src="/js/jquery-3.5.1.min.js"></script></body>
+</html>

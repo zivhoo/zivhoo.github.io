@@ -1,0 +1,120 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>所有文章 - My New Hugo Site</title>
+        <link>http://huxfhk.github.io/posts/</link>
+        <description>所有文章 | My New Hugo Site</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 15 Dec 2020 22:33:27 &#43;0000</lastBuildDate><atom:link href="http://huxfhk.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>const</title>
+    <link>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/const/</link>
+    <pubDate>Tue, 15 Dec 2020 22:33:27 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/const/</guid>
+    <description><![CDATA[普通常量 定义const常量时必须对其初始化，且初始化后不能修改其值；常量与变量可以相互赋值。
+int n1 = 10; const int n2 = n1; n1 = n2; const与引用 初始化引用或参数传递给引用的各种情况
+   引用 变量 常量 表达式 字面值     普通引用（int&amp;） true false false false   常引用（const int&amp;） true true true true    int n1 = 10; const int n2 = 20; int&amp; r1 = n1; //普通引用只能引用变量 // 常量引用可以引用变量、常量、表达式、字面值 const int&amp; r2 = n1; const int&amp; r3 = n2; const int&amp; r4 = 3 * 4; const int&amp; r5 = 10; const与指针  指针的各种赋值情况     指针 变量 常量     普通指针（int*） true false   常量指针（const int*） true true      常量指针与指针常量的区别 常量指针const在号的左边，表示指针地址对应的值不可改变；指针常量const在号的右边，表示指针地址不可改变。]]></description>
+</item><item>
+    <title>成长计划</title>
+    <link>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/</link>
+    <pubDate>Mon, 12 Oct 2020 16:23:32 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/</guid>
+    <description><![CDATA[技术类  线性代数  向量的点乘、叉乘、和归一化的意义    Unity  C#基础 Xlua 场景 资源管理 UI 动画 物理引擎 性能优化 调试 游戏常用算法 常用设计模式 安全 ECS &amp; Joy System 帧同步 状态同步 MeshRender中material和sharedmaterial的区别？ 四元数Quaternion的作用，四元数对欧拉角的优点。常见的四元数函数有哪些，有什么作用 物体发生碰撞的必要条件 碰撞器和触发器的区别   Graphics 数据结构与算法分析 C++  内存布局 多线程及同步   C#  泛性 反射的实现原理 GC产生的原因，并描述如何避免 lambda 闭包 内存的管理方式？及内存优化？ 装箱操作和拆箱分为那几个步骤 协同程序 C#的值类型和引用类型的区别   Lua  Lua是如何实现继承的    非技术类  一本小小的红色写作书 武士 祭祀 诗人  ]]></description>
+</item><item>
+    <title>斗地主牌型算法</title>
+    <link>http://huxfhk.github.io/posts/landlords/</link>
+    <pubDate>Mon, 13 Jul 2020 21:34:08 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/posts/landlords/</guid>
+    <description><![CDATA[斗地主牌型    编号 牌型 主牌组数 每组牌数 副牌组数 每组牌数 总牌数     1 单牌 1 1   1   2 对子 1 2   2   3 三牌 1 3   3   4 单顺 n&gt;=5 1   n   5 双顺 n&gt;=3 2   2*n   6 飞机 n&gt;=2 3   3*n   7 三带单 1 3 1 1 4   8 三带对 1 3 1 2 5   9 四带单单 1 4 2 1 6   10 四带对对 1 4 2 2 8   11 飞机带翅膀 n&gt;=2 3 n 1 3*n+n   12 飞机带翅膀 n&gt;=2 3 n 2 3n+2n   13 炸弹 1 4   4   14 火箭 固定    2    ]]></description>
+</item><item>
+    <title>Mac OSX 实用命令</title>
+    <link>http://huxfhk.github.io/posts/macosxcommand/</link>
+    <pubDate>Thu, 07 Jan 2016 23:44:16 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/posts/macosxcommand/</guid>
+    <description><![CDATA[端口占用 lsof 通过list open file命令可以查看到当前打开文件，在Unix中所有事物都是以文件形式存在，包括网络连接及硬件设备。
+lsof -i:80 -i表示网络链接
+:80指明端口号
+该命令会同时列出PID，方便kill
+kill kill命令用来终止一个进程。
+kill 1234 1234 表示进程PID号
+先用lsof查出占用端口号的进程，然后再用kill终止它。]]></description>
+</item><item>
+    <title></title>
+    <link>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/0nullnullptr/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/0nullnullptr/</guid>
+    <description><![CDATA[C语言中的NULL #define NULL ((void *)0) C++中的NULL 因为C语言中void*可以隐式转换成对应的类型，但是在C++中不行，所以C++中NULL是这么定义的
+#ifdef __cplusplus #define NULL 0 #else #define NULL ((void *)0) #endif 在使用C++过程中用0表示NULL更更让人警觉（避免调用错int与指针重载的函数）
+nullptr nullptr可以完美的解决这类问题
+没有nullptr的解决方案 const class nullptr_t { public: template&lt;class T&gt; inline operator T*() const { return 0; } template&lt;class C, class T&gt; inline operator T C::*() const { return 0; } private: void operator&amp;() const; } nullptr = {}; ]]></description>
+</item><item>
+    <title></title>
+    <link>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/class%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/class%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/</guid>
+    <description><![CDATA[title: class内存布局
+ class的内存布局和这几个有关系virtual函数、继承、多继承、virtual继承
+虚函数 类中自动添加一个虚函数指针，指向虚函数表，表中记录所有的虚函数地址。
+继承+虚函数 子类会继承父类的虚函数指针，被子类重写的虚函数会覆盖父类的虚函数地址，没有被重写的仍然沿用父类虚函数，新增的虚函数则会按照定义的顺序依次添加到虚函数表中。
+多继承+虚函数 子类会从多个父类继承它们的虚函数指针，子类重写的的虚函数会分别覆盖各虚函数表中的函数地址（如果父类中存在同名的函数都会被重写）。另外子类新增的虚函数会添加到第一个虚函数表中。
+虚继承+虚函数 多虚继承+虚函数 ]]></description>
+</item><item>
+    <title></title>
+    <link>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/cpp11/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/cpp11/</guid>
+    <description><![CDATA[auto 使用容器迭代器遍历的时候特别方便，不需要写集合的嵌套类型
+容器的列表初始化 nullptr #ifdef __cplusplus #define NULL 0 #else #define NULL ((void *)0) #endif c中void*可以隐式转换成其他类型的指针，但是在c++中不能隐式转换
+在C++中，使用0来做为空指针会比使用NULL来做空指针会让你更加警觉。
+thread sharedptr 右值引用 lambda ]]></description>
+</item><item>
+    <title></title>
+    <link>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/memmovememcpy/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/memmovememcpy/</guid>
+    <description><![CDATA[title: memmove 和 memcpy的区别
+ memcpy(void *_Dst, const void *_Src, int _Val, size_t _Size); memmove(void *_Dst, const void *_Src, size_t _MaxCount)
+内存重叠的情况下memcpy可能会出错，也可能不会出错]]></description>
+</item><item>
+    <title></title>
+    <link>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/smartpointer/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/cpp/smartpointer/</guid>
+    <description><![CDATA[title: 智能指针 std::auto_ptrp(new Class()) 缺点  当函数参数时不能引用计数加1 不能和操作符new[] 一起使用 不能和标准容器一起使用  std::shared_ptr ]]></description>
+</item><item>
+    <title></title>
+    <link>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/linearalgebra/matrix/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/linearalgebra/matrix/</guid>
+    <description><![CDATA[title: 矩阵  行数=列数 叫做方阵
+矩阵运算 加法 A + B
+各对应元素相加
+矩阵数量乘法 k · A
+矩阵幂运算 只有方阵才可以幂运算  矩阵转置 行变成列，列变成行
+矩阵转置的性质
+$$ \left(A^T\right)^T=A $$
+$$ \left(A+B\right)^T=A^T+B^T $$
+$$ \left(k\cdot A\right)^T=k\cdot A^T $$
+$$ \left(A\cdot B\right)^T=B^T\cdot A^T $$
+$$ \left(A\cdot B\right)^{-1}=B^{-1}\cdot A^{-1} $$
+$$ \left(A^T\right)^{-1}=\left(A^{-1}\right)^T $$
+翻转矩阵 错切矩阵 旋转矩阵 视频5-2 两角差的余弦公式
+$$ \cos\left(a-b\right)=\cos\left(a\right)\cos\left(b\right)+\sin\left(a\right)\sin\left(b\right) $$
+两角差正弦公式
+$$ \sin\left(a-b\right)=\sin\left(a\right)\cos\left(b\right)-\cos\left(a\right)\sin\left(b\right) $$
+单位矩阵 单位矩阵是一个方阵
+$$ I_n=\begin{bmatrix}1&amp;0&amp;\cdots&amp;0\0&amp;1&amp;\cdots&amp;0\\cdots&amp;\cdots&amp;\cdots&amp;\cdots\0&amp;0&amp;\cdots&amp;1\end{bmatrix} $$
+左上角到右下角叫做主对角线
+单位矩阵满足乘法的交换律
+矩阵的逆 $$ 当满足AB=BA=I时，则B是A的逆矩阵，记做：B=A^{-1} $$
+可逆矩阵，或者叫非奇异矩阵（必定是方阵）
+不可逆矩阵，或者叫奇异矩阵]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title> | </title><meta name="Description" content="This is My New Hugo Site"><meta property="og:title" content="" />
+<meta property="og:description" content="title: Lua 基础函数 date: 2020-10-30 22:13:27 tags: 基础函数 categories: Lua
+ 模块  load(&quot;&quot; || function [, chunkname , mode , env])  功能： 以字符串为函数体构建一个function(&hellip;)代码块编译并返回，如果第一个参数不是字符串而是function，则load会不断的调用function来获得字符串，直至function返回nil。 返回值：function(&hellip;) 错误处理：不会引发错误，返回值nil,error 因为需要额外编译（全局环境下）所以比直接定义function要慢。   loadfile([filename [, mode [, env]]])  功能：从文件加载、编译代码，返回代码块(不调用函数，函数可复用)。 返回值：function(&hellip;) 错误处理：不会引发错误，返回值nil,error   loadstring()  功能：同loadfile,只是从字符串中加载代码。 返回值：function(&hellip;) 错误处理：不会引发错误，返回值为nil,error   dofile(filename)  功能：加载、编译、执行代码块（每次调用都会执行） 返回值：代码块的返回值,无返回值即nil 错误处理：引发错误  function dofile (filename) local f = assert(loadfile(filename)) return f() end  require(modname)  功能：搜索目录加载、编译、执行代码块（多次调用只执行一次） 返回值：代码块的返回值,无返回值即true 错误处理：引发错误    元表   getmetatable" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" />
+<meta property="og:image" content="http://huxfhk.github.io/logo.png"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://huxfhk.github.io/logo.png"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="title: Lua 基础函数 date: 2020-10-30 22:13:27 tags: 基础函数 categories: Lua
+ 模块  load(&quot;&quot; || function [, chunkname , mode , env])  功能： 以字符串为函数体构建一个function(&hellip;)代码块编译并返回，如果第一个参数不是字符串而是function，则load会不断的调用function来获得字符串，直至function返回nil。 返回值：function(&hellip;) 错误处理：不会引发错误，返回值nil,error 因为需要额外编译（全局环境下）所以比直接定义function要慢。   loadfile([filename [, mode [, env]]])  功能：从文件加载、编译代码，返回代码块(不调用函数，函数可复用)。 返回值：function(&hellip;) 错误处理：不会引发错误，返回值nil,error   loadstring()  功能：同loadfile,只是从字符串中加载代码。 返回值：function(&hellip;) 错误处理：不会引发错误，返回值为nil,error   dofile(filename)  功能：加载、编译、执行代码块（每次调用都会执行） 返回值：代码块的返回值,无返回值即nil 错误处理：引发错误  function dofile (filename) local f = assert(loadfile(filename)) return f() end  require(modname)  功能：搜索目录加载、编译、执行代码块（多次调用只执行一次） 返回值：代码块的返回值,无返回值即true 错误处理：引发错误    元表   getmetatable"/>
+<meta name="application-name" content="uBlogger">
+<meta name="apple-mobile-web-app-title" content="uBlogger"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" /><link rel="prev" href="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" /><link rel="next" href="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/linearalgebra/vector/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/huxfhk.github.io\/posts\/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92\/lua\/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0\/"
+        },"genre": "posts","wordCount":  191 ,
+        "url": "http:\/\/huxfhk.github.io\/posts\/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92\/lua\/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My New Hugo Site" class="header-logo"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My New Hugo Site" class="header-logo"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="关于">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main"><div class="container content-article  theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">目录</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><div class="header-post">
+        <div class="post-title">
+
+            <div class="post-all-meta">
+            <div class="breadcrumbs">
+    <a href="/">主页 </a>/ <a href="/">  </a>
+</div>
+            <h1 class="single-title animated flipInX"></h1><div class="post-meta">
+                <div class="post-meta-line">&nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time class="timeago" datetime="0001-01-01">0001-01-01</time>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 191 字
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟</div>
+            </div>
+        </div>
+
+
+    </div>
+
+    </div>
+
+        <article class="single toc-start">
+
+        <div class="content-block content-block-first content-block-position">
+
+        <div class="post"><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#模块">模块</a></li>
+    <li><a href="#元表">元表</a></li>
+    <li><a href="#不触发元方法">不触发元方法</a></li>
+    <li><a href="#类型转换">类型转换</a></li>
+    <li><a href="#循环迭代">循环迭代</a></li>
+    <li><a href="#其他">其他</a></li>
+    <li><a href="#闭包">闭包</a></li>
+  </ul>
+</nav></div>
+            </div><p>title: Lua 基础函数
+date: 2020-10-30 22:13:27
+tags: 基础函数
+categories: Lua</p>
+<hr>
+<h2 id="模块">模块</h2>
+<ul>
+<li>load(&quot;&quot; || function [, chunkname , mode , env])
+<ul>
+<li>功能： 以字符串为函数体构建一个function(&hellip;)代码块编译并返回，如果第一个参数不是字符串而是function，则load会不断的调用function来获得字符串，直至function返回nil。</li>
+<li>返回值：function(&hellip;)</li>
+<li>错误处理：不会引发错误，返回值nil,error</li>
+<li>因为需要额外编译（全局环境下）所以比直接定义function要慢。</li>
+</ul>
+</li>
+<li>loadfile([filename [, mode [, env]]])
+<ul>
+<li>功能：从文件加载、编译代码，返回代码块(不调用函数，函数可复用)。</li>
+<li>返回值：function(&hellip;)</li>
+<li>错误处理：不会引发错误，返回值nil,error</li>
+</ul>
+</li>
+<li>loadstring()
+<ul>
+<li>功能：同loadfile,只是从字符串中加载代码。</li>
+<li>返回值：function(&hellip;)</li>
+<li>错误处理：不会引发错误，返回值为nil,error</li>
+</ul>
+</li>
+<li>dofile(filename)
+<ul>
+<li>功能：加载、编译、执行代码块（每次调用都会执行）</li>
+<li>返回值：代码块的返回值,<code>无返回值即nil</code></li>
+<li>错误处理：引发错误</li>
+</ul>
+<pre><code>function dofile (filename)
+  local f = assert(loadfile(filename))
+  return f()
+end
+</code></pre></li>
+<li>require(modname)
+<ul>
+<li>功能：搜索目录加载、编译、执行代码块（多次调用只执行一次）</li>
+<li>返回值：代码块的返回值,<code>无返回值即true</code></li>
+<li>错误处理：引发错误</li>
+</ul>
+</li>
+</ul>
+<h2 id="元表">元表</h2>
+<ul>
+<li>
+<p>getmetatable</p>
+</li>
+<li>
+<p>setmetatable</p>
+<p>如果table中存在__metatable字段，函数调用失败。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">编号</th>
+<th>元方法</th>
+<th>符号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td>__add</td>
+<td>+（加）</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td>__sub</td>
+<td>-（减）</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td>__mul</td>
+<td>*（乘）</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td>__div</td>
+<td>/（除）</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td>__mod</td>
+<td>%（取余）</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td>__pow</td>
+<td>^ （次方）</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td>__unm</td>
+<td>- （取负）</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td>__idiv</td>
+<td>// （向下取整除法）</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td>__band</td>
+<td>&amp; （按位与）</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td>__bor</td>
+<td>| （按位或）</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td>__bxor</td>
+<td>~ （按位异或）</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td>__bnot</td>
+<td>~ （按位非）</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td>__shl</td>
+<td>&laquo; （左移）</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td>__shr</td>
+<td>&raquo; （右移）</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td>__concat</td>
+<td>.. （连接）</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td>__len</td>
+<td># （取长度）</td>
+</tr>
+<tr>
+<td style="text-align:center">17</td>
+<td>__eq</td>
+<td>== （等于）</td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td>__lt</td>
+<td>&lt; （小于）</td>
+</tr>
+<tr>
+<td style="text-align:center">19</td>
+<td>__le</td>
+<td>&lt;= （小于等于）</td>
+</tr>
+<tr>
+<td style="text-align:center">20</td>
+<td>__index(tab, key)</td>
+<td>索引 table[key]</td>
+</tr>
+<tr>
+<td style="text-align:center">21</td>
+<td>__newindex(tab, key, value)</td>
+<td>索引赋值 table[key] = value</td>
+</tr>
+<tr>
+<td style="text-align:center">22</td>
+<td>__call(selfTab, newTab)</td>
+<td>函数调用操作 func(args)</td>
+</tr>
+<tr>
+<td style="text-align:center">23</td>
+<td>__tostring(tab)</td>
+<td>修改表的输出行为</td>
+</tr>
+</tbody>
+</table>
+<h2 id="不触发元方法">不触发元方法</h2>
+<ul>
+<li>rawequal</li>
+<li>rawlen</li>
+<li>rawget</li>
+<li>rawset</li>
+</ul>
+<h2 id="类型转换">类型转换</h2>
+<ul>
+<li>
+<p>tonumber</p>
+</li>
+<li>
+<p>tostring</p>
+</li>
+<li>
+<p>pcall</p>
+</li>
+<li>
+<p>xpcall</p>
+</li>
+</ul>
+<h2 id="循环迭代">循环迭代</h2>
+<ul>
+<li>
+<p>next (table [, key])</p>
+<p>返回table中指定key的下一个key和value，key为nil时将返回初始key及其value，传入最后一个key时next会返回nil（可以用来判断表是否为空）。</p>
+</li>
+<li>
+<p>pairs</p>
+<p>pairs可以遍历表中全部key，value</p>
+</li>
+<li>
+<p>ipairs</p>
+<p>key从数字1开始遍历，每次key累加1，当key对应的value为nil时终止遍历。如果非数字key或1开始key~=1或key数值不连续都不能完全遍历table。</p>
+<p><code>Note: #和table.getn(t)会在索引中断的地方停止计数，map形式的table不能通过这种方式获得长度</code></p>
+</li>
+</ul>
+<h2 id="其他">其他</h2>
+<ul>
+<li>type</li>
+<li>error</li>
+<li>print</li>
+<li>select(number | &ldquo;#&rdquo;, &hellip;)</li>
+<li>assert(v: any, message: any)</li>
+<li>collectgarbage</li>
+</ul>
+<h2 id="闭包">闭包</h2>
+<p>lua中两个嵌套函数，内部函数可以访问到外部函数中定义的局部变量（也叫upvalues），其中内部函数和那些被内部函数使用了的外部局部变量叫做闭包。</p>
+</div>
+
+            <div class="post"><div class="post-info-share">
+    <span><a class="share-icon share-twitter" href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" data-title="" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a class="share-icon share-facebook" href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/"><i class="fab fa-facebook-square fa-fw"></i></a><a class="share-icon share-whatsapp" href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" data-title="" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a class="share-icon share-line" href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a class="share-icon share-weibo" href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" data-title=""><i class="fab fa-weibo fa-fw"></i></a><a class="share-icon share-myspace" href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" data-title="" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a class="share-icon share-blogger" href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" data-title="" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a class="share-icon share-evernote" href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://huxfhk.github.io/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/" data-title=""><i class="fab fa-evernote fa-fw"></i></a></span>
+</div><div class="post-footer" id="post-footer"><div class="post-navigation"><div class="post-nav-box nav-box-prev">
+            <a class="nav-box" href="/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/lua/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/"><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"></path></svg></span><div style="text-align: right;padding-left: 10px"><div class="nav-text-h">下一篇</div><span class="nav-text"></span></div></a>
+        </div>
+        <div class="post-nav-box nav-box-next">
+            <a class="nav-box" href="/posts/%E6%88%90%E9%95%BF%E8%AE%A1%E5%88%92/linearalgebra/vector/"><div style="padding-right: 10px"><div class="nav-text-h">下一篇</div><span class="nav-text"></span></div><span class="nav-icon"><svg aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"></path></svg></span></a>
+        </div></div></div>
+</div>
+        </div>
+    <div id="toc-final"></div>
+    </article><div class="page single comments content-block-position"><div id="comments"></div></div></div></main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.80.0">Hugo</a> 强力驱动 | 主题 - <a href="https://ublogger.netlify.app/?utm_source=http://huxfhk.github.io/&utm_medium=footer&utm_campaign=config&utm_term=1.2.0" target="_blank" title="uBlogger 1.2.0"><i class="fas fa-pencil-alt fa-fw"></i> uBlogger</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span>2019 - 2021</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30}};</script><script src="/js/theme.min.js"></script><script src="/js/jquery-3.5.1.min.js"></script></body>
+</html>
