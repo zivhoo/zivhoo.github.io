@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noodp"/><title>Lua与C/C&#43;&#43;交互 | </title><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content=""/>
+<meta name="twitter:title" content="Lua与C/C&#43;&#43;交互"/>
+<meta name="twitter:description" content=""/><meta name="Description" content="记录下好玩的东西！"><meta property="og:title" content="Lua与C/C&#43;&#43;交互" />
+<meta property="og:description" content="C调用Lua首先读取lua原文件，然后将要调用的lua函数压入栈中，之后再将函数参数依次压入栈中，最后使用函数lua_pcall调用lua函数，另外lua函数返回值会被压入栈中。
+定义Lua1 2 3 4 5 6 7 8 9 10  local Test = {} function Test:waitForCppCall(name, age) print(name) print(age) return string.format(&#34;Hello I&#39;m %s %d years old.&#34;,name,age) end return Test   调用Lua代码1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24  auto L = luaL_newstate(); luaL_openlibs(L); // dofile会将代码块中的返回值压入栈 luaL_dofile(L,&#34;../lua/main.lua&#34;); // 堆栈情况{table(Test)} lua_getfield(L,1,&#34;waitForCppCall&#34;); // 堆栈情况{table(Test),waitForCppCall()} // lua的函数用`：`形式定义的，这里还需要将table传入 lua_pushvalue(L,1); // 堆栈情况{table(Test),waitForCppCall(),table(Test)} lua_pushstring(L,&#34;Sean&#34;); // 堆栈情况{table(Test),waitForCppCall(),table(Test), &#34;Sean&#34;} lua_pushnumber(L,20); // 堆栈情况{table(Test),waitForCppCall(),table(Test), &#34;Sean&#34;, 20} lua_pcall(L,3,1,0); // 堆栈情况{table(Test),[函数返回值1,函数返回值2,." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://huxfhk.github.io/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" />
+<meta property="og:image" content="http://huxfhk.github.io/" />
+<meta property="article:published_time" content="2020-11-04T12:04:27+08:00" />
+<meta property="article:modified_time" content="2020-11-04T12:04:27+08:00" />
+<meta name="application-name" content="一个小学生的博客">
+<meta name="apple-mobile-web-app-title" content="一个小学生的博客"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://huxfhk.github.io/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Lua与C/C++交互",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/huxfhk.github.io\/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92\/"
+        },"image": ["http:\/\/huxfhk.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Lua C\u002b\u002b","wordCount":  305 ,
+        "url": "http:\/\/huxfhk.github.io\/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92\/","datePublished": "2020-11-04T12:04:27+08:00","dateModified": "2020-11-04T12:04:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+        "publisher": {
+            "@type": "Person",
+            "name": "", "image": [
+            {
+            "@type": "ImageObject",
+            "url": "https:\/\/upagge.ru\/img\/ava.jpg"
+            }
+            ]},"author": {
+                "@type": "Person",
+                "name": ""
+            },"description": ""
+    }
+    </script><script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "主页",
+            "item": "http:\/\/huxfhk.github.io\/"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Lua",
+            "item": "http://huxfhk.github.io/categories/lua/"
+        },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Lua与C\/C\u002b\u002b交互"
+            }]
+    }
+</script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header>
+    <div class="desktop header" id="header-desktop">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="一个小学生的博客" class="header-logo logo-svg"><img loading="lazy" decoding="async"
+         class="logo"
+         src="/images/avatar.png"
+         alt="/images/avatar.png"
+         title="/images/avatar.png"
+    /><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>一个小学生的博客</a>
+            </div>
+            <div class="menu">
+                <nav>
+                    <h2 class="display-hidden">Основная навигация</h2>
+                    <ul class="menu-inner"><li>
+                            <a class="menu-item" href="/posts/"> Posts </a>
+                        </li><li>
+                            <a class="menu-item" href="/tags/"> 标签 </a>
+                        </li><li>
+                            <a class="menu-item" href="/categories/"> 类别 </a>
+                        </li><li>
+                            <a class="menu-item" href="/about/"> 关于 </a>
+                        </li></ul>
+                </nav><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <span class="svg-icon icon-search"></span>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <span class="svg-icon icon-cancel"></span>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <span class="svg-icon icon-loading"></span>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <span class="svg-icon icon-moon"></span>
+                </a>
+            </div>
+        </div>
+    </div><div class="mobile header" id="header-mobile">
+        <div class="header-container">
+            <div class="header-wrapper">
+                <div class="header-title">
+                    <a href="/" title="一个小学生的博客" class="header-logo"><img loading="lazy" decoding="async"
+         class="logo"
+         src="/images/avatar.png"
+         alt="/images/avatar.png"
+         title="/images/avatar.png"
+    /><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>一个小学生的博客</a>
+                </div>
+                <div class="menu-toggle" id="menu-toggle-mobile">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                        <div class="search mobile" id="search-mobile">
+                            <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                                <span class="svg-icon icon-search"></span>
+                            </a>
+                            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                                <span class="svg-icon icon-cancel"></span>
+                            </a>
+                            <span class="search-button search-loading" id="search-loading-mobile">
+                                <span class="svg-icon icon-loading"></span>
+                            </span>
+                        </div>
+                        <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                            取消
+                        </a>
+                    </div><nav>
+                    <h2 class="display-hidden">Основная навигация</h2>
+                    <ul><li>
+                            <a class="menu-item" href="/posts/" title="">Posts</a>
+                        </li><li>
+                            <a class="menu-item" href="/tags/" title="">标签</a>
+                        </li><li>
+                            <a class="menu-item" href="/categories/" title="">类别</a>
+                        </li><li>
+                            <a class="menu-item" href="/about/" title="">关于</a>
+                        </li></ul>
+                </nav>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <span class="svg-icon icon-moon"></span>
+                </a></div>
+        </div>
+    </div><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div></header><main class="main">
+<div class="container content-article page-toc theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">目录</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div>
+    
+
+    
+    
+    <article>
+    
+
+        <header class="header-post">
+
+            
+
+            
+            <div class="post-title">
+
+                    <div class="post-all-meta">
+                        <nav class="breadcrumbs">
+    <ol>
+        <li><a href="/">主页 </a></li><li><a href="/categories/lua/">Lua </a></li><li>Lua与C/C&#43;&#43;交互</li>
+    </ol>
+</nav>
+                        <h1 class="single-title flipInX">Lua与C/C&#43;&#43;交互</h1><div class="post-meta summary-post-meta"><span class="post-category meta-item">
+                                <a href="/categories/lua/"><span class="svg-icon icon-folder"></span>Lua</a>
+                            </span><span class="post-meta-date meta-item">
+                                <span class="svg-icon icon-clock"></span><time class="timeago" datetime="2020-11-04">119911-110-118</time>
+                            </span><span class="post-meta-words meta-item">
+                                <span class="svg-icon icon-pencil"></span>约 305 字
+                            </span>
+                            <span class="post-meta-reading meta-item">
+                                <span class="svg-icon icon-stopwatch"></span>预计阅读 2 分钟
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                </header>
+
+        <div class="article-post toc-start">
+
+            <div class="content-block content-block-first content-block-position">
+
+                <div class="post single"><div class="details toc" id="toc-static"  data-kept="">
+                        <div class="details-summary toc-title">
+                            <span>目录</span>
+                        </div>
+                        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#c调用lua">C调用Lua</a>
+      <ul>
+        <li><a href="#定义lua">定义Lua</a></li>
+        <li><a href="#调用lua代码">调用Lua代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#lua调用c">Lua调用C</a>
+      <ul>
+        <li><a href="#定义lua可调用的函数">定义Lua可调用的函数</a></li>
+        <li><a href="#注册函数到lua解释器中">注册函数到lua解释器中</a></li>
+        <li><a href="#调用cc函数">调用C/C++函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#类型对应关系">类型对应关系</a></li>
+    <li><a href="#常用函数">常用函数</a></li>
+    <li><a href="#lual_辅助库">luaL_*辅助库</a></li>
+  </ul>
+</nav></div>
+                    </div><h2 id="c调用lua" class="headerLink"><a href="#c%e8%b0%83%e7%94%a8lua" class="header-mark"></a>C调用Lua</h2><p>首先读取lua原文件，然后将要调用的lua函数压入栈中，之后再将函数参数依次压入栈中，最后使用函数lua_pcall调用lua函数，另外lua函数返回值会被压入栈中。</p>
+<h3 id="定义lua" class="headerLink"><a href="#%e5%ae%9a%e4%b9%89lua" class="header-mark"></a>定义Lua</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">local Test = {}
+
+function Test:waitForCppCall(name, age)
+    print(name)
+    print(age)
+    
+    return string.format(&#34;Hello I&#39;m %s %d years old.&#34;,name,age)
+end
+
+return Test
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="调用lua代码" class="headerLink"><a href="#%e8%b0%83%e7%94%a8lua%e4%bb%a3%e7%a0%81" class="header-mark"></a>调用Lua代码</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">    auto L = luaL_newstate();
+    luaL_openlibs(L);
+    
+    // dofile会将代码块中的返回值压入栈
+    luaL_dofile(L,&#34;../lua/main.lua&#34;);
+    // 堆栈情况{table(Test)}
+
+    lua_getfield(L,1,&#34;waitForCppCall&#34;);
+    // 堆栈情况{table(Test),waitForCppCall()}
+
+    // lua的函数用`：`形式定义的，这里还需要将table传入
+    lua_pushvalue(L,1);
+    // 堆栈情况{table(Test),waitForCppCall(),table(Test)}
+
+    lua_pushstring(L,&#34;Sean&#34;);
+    // 堆栈情况{table(Test),waitForCppCall(),table(Test), &#34;Sean&#34;}
+
+    lua_pushnumber(L,20);
+    // 堆栈情况{table(Test),waitForCppCall(),table(Test), &#34;Sean&#34;, 20}
+
+    lua_pcall(L,3,1,0);
+    // 堆栈情况{table(Test),[函数返回值1,函数返回值2,...]}
+
+    lua_close(L);
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="lua调用c" class="headerLink"><a href="#lua%e8%b0%83%e7%94%a8c" class="header-mark"></a>Lua调用C</h2><h3 id="定义lua可调用的函数" class="headerLink"><a href="#%e5%ae%9a%e4%b9%89lua%e5%8f%af%e8%b0%83%e7%94%a8%e7%9a%84%e5%87%bd%e6%95%b0" class="header-mark"></a>定义Lua可调用的函数</h3><p>lua调用的c/c++函数必须满足</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">static int add(lua_State *L){
+    int n = lua_gettop(L);
+    cout &lt;&lt; &#34;参数个数：&#34; &lt;&lt; n &lt;&lt; endl;
+    
+    double sum = 0;
+    for (size_t i = 1; i &lt;= n; i++)
+    {
+        double d = lua_tonumber(L, i);
+        cout &lt;&lt; &#34;第&#34; &lt;&lt; i &lt;&lt; &#34;个参数：&#34;  &lt;&lt; d &lt;&lt; endl;
+        sum += d;
+    }
+
+    lua_pushnumber(L, sum);
+    lua_pushstring(L, &#34;我就测试一下第二返回值。&#34;);
+    
+    return 2;
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="注册函数到lua解释器中" class="headerLink"><a href="#%e6%b3%a8%e5%86%8c%e5%87%bd%e6%95%b0%e5%88%b0lua%e8%a7%a3%e9%87%8a%e5%99%a8%e4%b8%ad" class="header-mark"></a>注册函数到lua解释器中</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">static const struct luaL_Reg reg[] = {
+    {&#34;add&#34;, add},
+    {NULL, NULL},
+};
+
+LUALIB_API int luaopen_fun(lua_State *L){
+    luaL_newlib(L, reg);
+    return 1;
+}
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">luaL_requiref(L,&#34;ModuleName&#34;, luaopen_fun, 1);
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="调用cc函数" class="headerLink"><a href="#%e8%b0%83%e7%94%a8cc%e5%87%bd%e6%95%b0" class="header-mark"></a>调用C/C++函数</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">print(ModuleName.add(1,2,3,6,5,4))
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="类型对应关系" class="headerLink"><a href="#%e7%b1%bb%e5%9e%8b%e5%af%b9%e5%ba%94%e5%85%b3%e7%b3%bb" class="header-mark"></a>类型对应关系</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th>C</th>
+<th>Lua</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">nil</td>
+<td>无</td>
+<td>{value=0, tt = t_nil}</td>
+</tr>
+<tr>
+<td style="text-align:center">boolean</td>
+<td>int  非0, 0</td>
+<td>{value=非0/0， tt = t_boolean}</td>
+</tr>
+<tr>
+<td style="text-align:center">number</td>
+<td>int/float等</td>
+<td>{value=1.5, tt = t_number}</td>
+</tr>
+<tr>
+<td style="text-align:center">lightuserdata</td>
+<td>void*, int*, 各种*point</td>
+<td>{value=point, tt = t_lightuserdata}</td>
+</tr>
+<tr>
+<td style="text-align:center">string</td>
+<td>char  str[]</td>
+<td>{value=gco, tt = t_string}   gco=TString obj</td>
+</tr>
+<tr>
+<td style="text-align:center">table</td>
+<td>无</td>
+<td>{value=gco, tt = t_table}  gco=Table obj</td>
+</tr>
+<tr>
+<td style="text-align:center">userdata</td>
+<td>无</td>
+<td>{value=gco, tt = t_udata} gco=Udata obj</td>
+</tr>
+<tr>
+<td style="text-align:center">closure</td>
+<td>无</td>
+<td>{value=gco, tt = t_function} gco=Closure obj</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用函数" class="headerLink"><a href="#%e5%b8%b8%e7%94%a8%e5%87%bd%e6%95%b0" class="header-mark"></a>常用函数</h2><ul>
+<li>
+<p>lua_gettop(lua_State *L)</p>
+<p>返回栈顶索引（即栈长度）</p>
+</li>
+<li>
+<p>lua_settop (lua_State *L, int idx)
+将栈顶设置为一个指定的位置，即修改栈中元素的数量。如果值比原栈顶高，则高的部分nil补足，如果值比原栈低，则原栈高出的部分舍弃。所以可以用lua_settop(L, 0)来清空栈。</p>
+</li>
+<li>
+<p>lua_close</p>
+</li>
+<li>
+<p>lua_register</p>
+</li>
+<li>
+<p>lua_getglobal(lua_State *L, const char *name)</p>
+<p>把全局变量 name 里的值压栈，然后由Lua去寻找变量name的值，并将变量name的值返回栈顶（替换name）</p>
+</li>
+<li>
+<p>lua_getfield()</p>
+</li>
+<li>
+<p>lua_setfield()</p>
+<p>获取或者设置表中的值</p>
+</li>
+<li>
+<p>lua_pcall(lua_State *L, int nargs, int nresults, int msgh)
+依次将函数参数和函数从栈中弹出，然后调用函数，并把最后函数的返回值压入栈中。</p>
+</li>
+</ul>
+<h2 id="lual_辅助库" class="headerLink"><a href="#lual_%e8%be%85%e5%8a%a9%e5%ba%93" class="header-mark"></a>luaL_*辅助库</h2><pre><code>+ luaL_newstate
++ luaL_openlibs
++ luaL_dofile
+
++ lua_push*
++ lua_to*
++ lua_createtable</code></pre>
+</div><footer>
+                        <div class="post">
+
+
+<div class="post-share"><div class="share-link">
+        <a class="share-icon share-twitter" href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://huxfhk.github.io/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title="Lua与C/C&#43;&#43;交互" data-hashtags="Lua C&#43;&#43;"><span class="svg-social-icon icon-twitter"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-facebook" href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://huxfhk.github.io/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-hashtag="Lua C&#43;&#43;"><span class="svg-social-icon icon-facebook"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-line" href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://huxfhk.github.io/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title="Lua与C/C&#43;&#43;交互"><span class="svg-social-icon icon-line"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-weibo" href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://huxfhk.github.io/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title="Lua与C/C&#43;&#43;交互"><span class="svg-social-icon icon-weibo"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-hackernews" href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://huxfhk.github.io/lua%E4%B8%8Ec%E4%BA%A4%E4%BA%92/" data-title="Lua与C/C&#43;&#43;交互"><span class="svg-social-icon icon-hacker-news"></span></a>
+    </div></div>
+
+<div class="footer-post-author">
+    <div class="author-avatar"><a href="http://huxfhk.github.io/" target="_blank"><img alt="Hello" src="https://upagge.ru/img/ava.jpg"></a></div>
+    <div class="author-info">
+        <div class="name"><a href="http://huxfhk.github.io/" target="_blank"></a></div>
+        <div class="number-posts">Hello</span></div>
+    </div>
+</div><div class="post-tags"><a href="/tags/lua-c&#43;&#43;/" class="tag">Lua C&#43;&#43;</a></div></div>
+                </footer></div>
+        <div id="toc-final"></div>
+        </div>
+
+    
+    </article>
+    <section class="page single comments content-block-position">
+        <h1 class="display-hidden">Комментарии</h1><div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></section></div>
+
+</main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.80.0">Hugo</a> 强力驱动 | 主题 - <a href="https://ublogger.netlify.app/?utm_source=http://huxfhk.github.io/&utm_medium=footer&utm_campaign=config&utm_term=2.0.1" target="_blank" title="uBlogger 2.0.1">uBlogger</a>
+                </div><div class="footer-line"><i class="svg-icon icon-copyright"></i><span>2016 - 2021</span><span class="author">&nbsp;<a href="http://huxfhk.github.io/" target="_blank">Sean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <aside id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="svg-icon icon-arrow-up"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="svg-icon icon-comments-fixed"></i>
+            </a>
+        </aside><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["huxfhk"],"clientID":"7e5cc49d0f3fab0e3213","clientSecret":"a955315f72314060284b5ecc97b5178d6e16b22b","id":"2020-11-04T12:04:27+08:00","owner":"huxfhk","repo":"BlogTalk","title":"Lua与C/C++交互"}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script><script>
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym("70532758", "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor: null 
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/70532758" style="position:absolute; left:-9999px;" alt="" /></div></noscript></body>
+</html>

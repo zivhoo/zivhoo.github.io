@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>线性代数 - 分类 - 一个小学生的博客</title>
+        <link>http://huxfhk.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</link>
+        <description>线性代数 - 分类 - 一个小学生的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 15 Apr 2021 20:34:40 &#43;0800</lastBuildDate><atom:link href="http://huxfhk.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" rel="self" type="application/rss+xml" /><item>
+    <title>解线性方程组</title>
+    <link>http://huxfhk.github.io/%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/</link>
+    <pubDate>Thu, 15 Apr 2021 20:34:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/</guid>
+    <description><![CDATA[矩阵的初等行变换 两行互换 一行加上另一行的倍数 一行乘以一个非0数  阶梯形矩阵 如果有全0行，那么全0行在最下方 所有行的主元的所在列随着行号增加而增加 阶梯的长度可以很长，但是高度必须为1。阶梯下全为0。  简化行阶梯型矩阵 主元都是1，主元所在列的其余元素都为0.  自由未知量
+主变量
+一般解
+三种解当矩阵中出现0 = b时无解；非0行数 = 未知数个数时则有唯一解；非0行数 &lt; 未知数个数无穷解。
+行列式 性质1:矩阵与其转置矩阵的行列式相同 性质2:行列式某行乘以k倍 性质3:行列式某行是两个数之和 性质4:对换两行 性质5:两行相等 性质6:两行成比例 性质7:某行加上另外一行的倍数  ]]></description>
+</item></channel>
+</rss>

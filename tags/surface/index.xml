@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Surface - 标签 - 一个小学生的博客</title>
+        <link>http://huxfhk.github.io/tags/surface/</link>
+        <description>Surface - 标签 - 一个小学生的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 13 Apr 2021 17:16:20 &#43;0800</lastBuildDate><atom:link href="http://huxfhk.github.io/tags/surface/" rel="self" type="application/rss+xml" /><item>
+    <title>SurfaceShader</title>
+    <link>http://huxfhk.github.io/surfaceshader/</link>
+    <pubDate>Tue, 13 Apr 2021 17:16:20 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/surfaceshader/</guid>
+    <description><![CDATA[1 2  #pragma surface surfaceFunction lightModel [optionalparams]   ]]></description>
+</item></channel>
+</rss>

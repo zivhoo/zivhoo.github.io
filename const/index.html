@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noodp"/><title>c&#43;&#43; const使用 | </title><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content=""/>
+<meta name="twitter:title" content="c&#43;&#43; const使用"/>
+<meta name="twitter:description" content=""/><meta name="Description" content="记录下好玩的东西！"><meta property="og:title" content="c&#43;&#43; const使用" />
+<meta property="og:description" content="普通常量定义const常量时必须对其初始化，且初始化后不能修改其值；常量与变量可以相互赋值。
+1 2 3  int n1 = 10; const int n2 = n1; n1 = n2;   const与引用初始化引用或参数传递给引用的各种情况
+   引用 变量 常量 表达式 字面值     普通引用（int&amp;） true false false false   常引用（const int&amp;） true true true true    1 2 3 4 5 6 7 8 9 10  int n1 = 10; const int n2 = 20; int&amp; r1 = n1; //普通引用只能引用变量 // 常量引用可以引用变量、常量、表达式、字面值 const int&amp; r2 = n1; const int&amp; r3 = n2; const int&amp; r4 = 3 * 4; const int&amp; r5 = 10;   const与指针 指针的各种赋值情况     指针 变量 常量     普通指针（int*） true false   常量指针（const int*） true true      常量指针与指针常量的区别 常量指针const在号的左边，表示指针地址对应的值不可改变；指针常量const在号的右边，表示指针地址不可改变。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://huxfhk.github.io/const/" />
+<meta property="og:image" content="http://huxfhk.github.io/logo.png"/>
+<meta property="article:published_time" content="2020-12-15T22:33:27+00:00" />
+<meta property="article:modified_time" content="2021-01-14T15:25:12+08:00" />
+<meta name="application-name" content="一个小学生的博客">
+<meta name="apple-mobile-web-app-title" content="一个小学生的博客"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://huxfhk.github.io/const/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "c++ const使用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/huxfhk.github.io\/const\/"
+        },"image": ["http:\/\/huxfhk.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordCount":  125 ,
+        "url": "http:\/\/huxfhk.github.io\/const\/","datePublished": "2020-12-15T22:33:27+00:00","dateModified": "2021-01-14T15:25:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+        "publisher": {
+            "@type": "Person",
+            "name": "", "image": [
+            {
+            "@type": "ImageObject",
+            "url": "https:\/\/upagge.ru\/img\/ava.jpg"
+            }
+            ]},"author": {
+                "@type": "Person",
+                "name": ""
+            },"description": ""
+    }
+    </script><script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "主页",
+            "item": "http:\/\/huxfhk.github.io\/"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "cpp",
+            "item": "http://huxfhk.github.io/categories/cpp/"
+        },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": "c\u002b\u002b const使用"
+            }]
+    }
+</script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header>
+    <div class="desktop header" id="header-desktop">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="一个小学生的博客" class="header-logo logo-svg"><img loading="lazy" decoding="async"
+         class="logo"
+         src="/images/avatar.png"
+         alt="/images/avatar.png"
+         title="/images/avatar.png"
+    /><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>一个小学生的博客</a>
+            </div>
+            <div class="menu">
+                <nav>
+                    <h2 class="display-hidden">Основная навигация</h2>
+                    <ul class="menu-inner"><li>
+                            <a class="menu-item" href="/posts/"> Posts </a>
+                        </li><li>
+                            <a class="menu-item" href="/tags/"> 标签 </a>
+                        </li><li>
+                            <a class="menu-item" href="/categories/"> 类别 </a>
+                        </li><li>
+                            <a class="menu-item" href="/about/"> 关于 </a>
+                        </li></ul>
+                </nav><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <span class="svg-icon icon-search"></span>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <span class="svg-icon icon-cancel"></span>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <span class="svg-icon icon-loading"></span>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <span class="svg-icon icon-moon"></span>
+                </a>
+            </div>
+        </div>
+    </div><div class="mobile header" id="header-mobile">
+        <div class="header-container">
+            <div class="header-wrapper">
+                <div class="header-title">
+                    <a href="/" title="一个小学生的博客" class="header-logo"><img loading="lazy" decoding="async"
+         class="logo"
+         src="/images/avatar.png"
+         alt="/images/avatar.png"
+         title="/images/avatar.png"
+    /><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>一个小学生的博客</a>
+                </div>
+                <div class="menu-toggle" id="menu-toggle-mobile">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                        <div class="search mobile" id="search-mobile">
+                            <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                                <span class="svg-icon icon-search"></span>
+                            </a>
+                            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                                <span class="svg-icon icon-cancel"></span>
+                            </a>
+                            <span class="search-button search-loading" id="search-loading-mobile">
+                                <span class="svg-icon icon-loading"></span>
+                            </span>
+                        </div>
+                        <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                            取消
+                        </a>
+                    </div><nav>
+                    <h2 class="display-hidden">Основная навигация</h2>
+                    <ul><li>
+                            <a class="menu-item" href="/posts/" title="">Posts</a>
+                        </li><li>
+                            <a class="menu-item" href="/tags/" title="">标签</a>
+                        </li><li>
+                            <a class="menu-item" href="/categories/" title="">类别</a>
+                        </li><li>
+                            <a class="menu-item" href="/about/" title="">关于</a>
+                        </li></ul>
+                </nav>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <span class="svg-icon icon-moon"></span>
+                </a></div>
+        </div>
+    </div><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div></header><main class="main">
+<div class="container content-article page-toc theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">目录</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div>
+    
+
+    
+    
+    <article>
+    
+
+        <header class="header-post">
+
+            
+
+            
+            <div class="post-title">
+
+                    <div class="post-all-meta">
+                        <nav class="breadcrumbs">
+    <ol>
+        <li><a href="/">主页 </a></li><li><a href="/categories/cpp/">cpp </a></li><li>c&#43;&#43; const使用</li>
+    </ol>
+</nav>
+                        <h1 class="single-title flipInX">c&#43;&#43; const使用</h1><div class="post-meta summary-post-meta"><span class="post-category meta-item">
+                                <a href="/categories/cpp/"><span class="svg-icon icon-folder"></span>cpp</a>
+                            </span><span class="post-meta-date meta-item">
+                                <span class="svg-icon icon-clock"></span><time class="timeago" datetime="2020-12-15">129912-120-128</time>
+                            </span><span class="post-meta-words meta-item">
+                                <span class="svg-icon icon-pencil"></span>约 125 字
+                            </span>
+                            <span class="post-meta-reading meta-item">
+                                <span class="svg-icon icon-stopwatch"></span>预计阅读 1 分钟
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                </header>
+
+        <div class="article-post toc-start">
+
+            <div class="content-block content-block-first content-block-position">
+
+                <div class="post single"><div class="details toc" id="toc-static"  data-kept="">
+                        <div class="details-summary toc-title">
+                            <span>目录</span>
+                        </div>
+                        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#普通常量">普通常量</a></li>
+    <li><a href="#const与引用">const与引用</a></li>
+    <li><a href="#const与指针">const与指针</a></li>
+    <li><a href="#const与函数参数">const与函数参数</a></li>
+    <li><a href="#const与类">const与类</a></li>
+    <li><a href="#用法1">用法1</a></li>
+    <li><a href="#const_cast">const_cast</a></li>
+  </ul>
+</nav></div>
+                    </div><div style="margin: 20px 0 20px 0;">
+                        <span class="post-update">
+                            <span class="s">更新于 1991-10-18</span>
+                        </span>
+                    </div><h2 id="普通常量" class="headerLink"><a href="#%e6%99%ae%e9%80%9a%e5%b8%b8%e9%87%8f" class="header-mark"></a>普通常量</h2><p><code>定义</code>const常量时必须对其初始化，且初始化后不能修改其值；常量与变量可以相互赋值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">int n1 = 10;
+const int n2 = n1;
+n1 = n2;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="const与引用" class="headerLink"><a href="#const%e4%b8%8e%e5%bc%95%e7%94%a8" class="header-mark"></a>const与引用</h2><p>初始化引用或参数传递给引用的各种情况</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">引用</th>
+<th>变量</th>
+<th>常量</th>
+<th>表达式</th>
+<th>字面值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">普通引用（int&amp;）</td>
+<td>true</td>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td style="text-align:center">常引用（const int&amp;）</td>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">int n1       = 10;
+const int n2 = 20;
+
+int&amp; r1 = n1; //普通引用只能引用变量
+
+// 常量引用可以引用变量、常量、表达式、字面值
+const int&amp; r2 = n1;
+const int&amp; r3 = n2;
+const int&amp; r4 = 3 * 4;
+const int&amp; r5 = 10;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="const与指针" class="headerLink"><a href="#const%e4%b8%8e%e6%8c%87%e9%92%88" class="header-mark"></a>const与指针</h2><ul>
+<li>指针的各种赋值情况</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">指针</th>
+<th>变量</th>
+<th>常量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">普通指针（int*）</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td style="text-align:center">常量指针（const int*）</td>
+<td>true</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>常量指针与指针常量的区别
+常量指针const在<em>号的左边，表示<code>指针地址对应的值不可改变</code>；指针常量const在</em>号的右边，表示<code>指针地址不可改变</code>。</p>
+</li>
+<li>
+<p>当指针、typedef、const结合使用时，稍有不同。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">typedef char * StringPtr;
+const StringPtr value = &#34;&#34;;
+// 等价于
+char * const value = &#34;&#34;;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="const与函数参数" class="headerLink"><a href="#const%e4%b8%8e%e5%87%bd%e6%95%b0%e5%8f%82%e6%95%b0" class="header-mark"></a>const与函数参数</h2><ul>
+<li>普通函数参数（指针和引用除外）不能通过加减const实现函数重载。</li>
+</ul>
+<h2 id="const与类" class="headerLink"><a href="#const%e4%b8%8e%e7%b1%bb" class="header-mark"></a>const与类</h2><ul>
+<li>const成员变量：只能在构造函数初始化列表中初始化（只是在对象中是不可变的）。整个类中不变得使用enum</li>
+<li>const成员函数：函数中不能修改成员变量，也不能调用普通成员函数，却可以被普通成员函数调用，可以和普通成员函数实现重载。</li>
+</ul>
+<h2 id="用法1" class="headerLink"><a href="#%e7%94%a8%e6%b3%951" class="header-mark"></a>用法1</h2><p>如果某个const变量需要在多个文件中共享，又不能在头文件中初始化，这个时候可以在头文件中用<code>extern</code>声明，在cpp中初始化const量</p>
+<h2 id="const_cast" class="headerLink"><a href="#const_cast" class="header-mark"></a>const_cast</h2><p>const_cast只能移除指针或引用的const或volatile限定符</p>
+<p>dynamic_cast、static_cast、reinterpret_cast</p>
+</div><footer>
+                        <div class="post">
+
+
+<div class="post-share"><div class="share-link">
+        <a class="share-icon share-twitter" href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://huxfhk.github.io/const/" data-title="c&#43;&#43; const使用"><span class="svg-social-icon icon-twitter"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-facebook" href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://huxfhk.github.io/const/"><span class="svg-social-icon icon-facebook"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-line" href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://huxfhk.github.io/const/" data-title="c&#43;&#43; const使用"><span class="svg-social-icon icon-line"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-weibo" href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://huxfhk.github.io/const/" data-title="c&#43;&#43; const使用"><span class="svg-social-icon icon-weibo"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-hackernews" href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://huxfhk.github.io/const/" data-title="c&#43;&#43; const使用"><span class="svg-social-icon icon-hacker-news"></span></a>
+    </div></div>
+
+<div class="footer-post-author">
+    <div class="author-avatar"><a href="http://huxfhk.github.io/" target="_blank"><img alt="Hello" src="https://upagge.ru/img/ava.jpg"></a></div>
+    <div class="author-info">
+        <div class="name"><a href="http://huxfhk.github.io/" target="_blank"></a></div>
+        <div class="number-posts">Hello</span></div>
+    </div>
+</div></div>
+                </footer></div>
+        <div id="toc-final"></div>
+        </div>
+
+    
+    </article>
+    <section class="page single comments content-block-position">
+        <h1 class="display-hidden">Комментарии</h1><div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></section></div>
+
+</main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.80.0">Hugo</a> 强力驱动 | 主题 - <a href="https://ublogger.netlify.app/?utm_source=http://huxfhk.github.io/&utm_medium=footer&utm_campaign=config&utm_term=2.0.1" target="_blank" title="uBlogger 2.0.1">uBlogger</a>
+                </div><div class="footer-line"><i class="svg-icon icon-copyright"></i><span>2016 - 2021</span><span class="author">&nbsp;<a href="http://huxfhk.github.io/" target="_blank">Sean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <aside id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="svg-icon icon-arrow-up"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="svg-icon icon-comments-fixed"></i>
+            </a>
+        </aside><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["huxfhk"],"clientID":"7e5cc49d0f3fab0e3213","clientSecret":"a955315f72314060284b5ecc97b5178d6e16b22b","id":"2020-12-15T22:33:27Z","owner":"huxfhk","repo":"BlogTalk","title":"c++ const使用"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script><script>
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym("70532758", "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor: null 
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/70532758" style="position:absolute; left:-9999px;" alt="" /></div></noscript></body>
+</html>

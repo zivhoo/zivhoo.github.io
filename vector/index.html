@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noodp"/><title> | </title><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content=""/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content=""/><meta name="Description" content="记录下好玩的东西！"><meta property="og:title" content="" />
+<meta property="og:description" content="title: 向量 date: 2020-10-31 12:20:53 tags: Vector categories: Vector向量：一串有序的数字，可以看成是一段有向的险段，也可以看成是空间中的一个点。
+向量的两个视角 有向的线段 空间中的一个点  考虑起始点和不考虑起始点的向量表示方法$$ \overset\rightharpoonup A\\mathrm{向量}A\
+\overset\rightharpoonup{OA}\\mathrm{从原点}O到A $$
+行向量和列向量$$ \begin{pmatrix}3&amp;4\end{pmatrix}\行向量\
+\begin{pmatrix}3\4\end{pmatrix}\列向量\
+\begin{pmatrix}3&amp;4\end{pmatrix}^T\书本列向量表示方式\
+$$
+向量的运算u &#43; v
+k · u
+向量运算的基本性质$$ \overset\rightharpoonup u&#43;\overset\rightharpoonup v=\overset\rightharpoonup v&#43;\overset\rightharpoonup u\
+\left(k&#43;c\right)\overset\rightharpoonup u=k\overset\rightharpoonup u&#43;{c\overset\rightharpoonup u}\
+\left(\overset\rightharpoonup u&#43;\overset\rightharpoonup v\right)&#43;\overset\rightharpoonup w=\overset\rightharpoonup u&#43;\left(\overset\rightharpoonup v&#43;\overset\rightharpoonup w\right)\
+\left(kc\right)\overset\rightharpoonup u=k\left(c\overset\rightharpoonup u\right)\
+k\left(\overset\rightharpoonup u&#43;\overset\rightharpoonup v\right)=k\overset\rightharpoonup u&#43;k\overset\rightharpoonup v\
+1\overset\rightharpoonup u=\overset\rightharpoonup u\
+$$
+向量的模单位向量符号表示 标准单位向量：只有1个1和n个0组成的向量 e1（1，0） e2（0，1）
+余弦定理点乘点乘的两个公式
+0 垂直
+ 0 锐角 &lt; 0 钝角" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://huxfhk.github.io/vector/" />
+<meta property="og:image" content="http://huxfhk.github.io/logo.png"/>
+<meta property="article:modified_time" content="2021-01-14T15:25:12+08:00" />
+<meta name="application-name" content="一个小学生的博客">
+<meta name="apple-mobile-web-app-title" content="一个小学生的博客"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://huxfhk.github.io/vector/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/huxfhk.github.io\/vector\/"
+        },"image": ["http:\/\/huxfhk.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordCount":  69 ,
+        "url": "http:\/\/huxfhk.github.io\/vector\/","dateModified": "2021-01-14T15:25:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+        "publisher": {
+            "@type": "Person",
+            "name": "", "image": [
+            {
+            "@type": "ImageObject",
+            "url": "https:\/\/upagge.ru\/img\/ava.jpg"
+            }
+            ]},"author": {
+                "@type": "Person",
+                "name": ""
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header>
+    <div class="desktop header" id="header-desktop">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="一个小学生的博客" class="header-logo logo-svg"><img loading="lazy" decoding="async"
+         class="logo"
+         src="/images/avatar.png"
+         alt="/images/avatar.png"
+         title="/images/avatar.png"
+    /><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>一个小学生的博客</a>
+            </div>
+            <div class="menu">
+                <nav>
+                    <h2 class="display-hidden">Основная навигация</h2>
+                    <ul class="menu-inner"><li>
+                            <a class="menu-item" href="/posts/"> Posts </a>
+                        </li><li>
+                            <a class="menu-item" href="/tags/"> 标签 </a>
+                        </li><li>
+                            <a class="menu-item" href="/categories/"> 类别 </a>
+                        </li><li>
+                            <a class="menu-item" href="/about/"> 关于 </a>
+                        </li></ul>
+                </nav><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <span class="svg-icon icon-search"></span>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <span class="svg-icon icon-cancel"></span>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <span class="svg-icon icon-loading"></span>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <span class="svg-icon icon-moon"></span>
+                </a>
+            </div>
+        </div>
+    </div><div class="mobile header" id="header-mobile">
+        <div class="header-container">
+            <div class="header-wrapper">
+                <div class="header-title">
+                    <a href="/" title="一个小学生的博客" class="header-logo"><img loading="lazy" decoding="async"
+         class="logo"
+         src="/images/avatar.png"
+         alt="/images/avatar.png"
+         title="/images/avatar.png"
+    /><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>一个小学生的博客</a>
+                </div>
+                <div class="menu-toggle" id="menu-toggle-mobile">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                        <div class="search mobile" id="search-mobile">
+                            <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                                <span class="svg-icon icon-search"></span>
+                            </a>
+                            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                                <span class="svg-icon icon-cancel"></span>
+                            </a>
+                            <span class="search-button search-loading" id="search-loading-mobile">
+                                <span class="svg-icon icon-loading"></span>
+                            </span>
+                        </div>
+                        <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                            取消
+                        </a>
+                    </div><nav>
+                    <h2 class="display-hidden">Основная навигация</h2>
+                    <ul><li>
+                            <a class="menu-item" href="/posts/" title="">Posts</a>
+                        </li><li>
+                            <a class="menu-item" href="/tags/" title="">标签</a>
+                        </li><li>
+                            <a class="menu-item" href="/categories/" title="">类别</a>
+                        </li><li>
+                            <a class="menu-item" href="/about/" title="">关于</a>
+                        </li></ul>
+                </nav>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <span class="svg-icon icon-moon"></span>
+                </a></div>
+        </div>
+    </div><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div></header><main class="main">
+<div class="container content-article page-toc theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">目录</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div>
+    
+
+    
+    
+    <article>
+    
+
+        <header class="header-post">
+
+            
+
+            
+            <div class="post-title">
+
+                    <div class="post-all-meta">
+                        <nav class="breadcrumbs">
+    <ol>
+        <li><a href="/">主页 </a></li><li></li>
+    </ol>
+</nav>
+                        <h1 class="single-title flipInX"></h1><div class="post-meta summary-post-meta"><span class="post-meta-date meta-item">
+                                <span class="svg-icon icon-clock"></span><time class="timeago" datetime="0001-01-01">1991-10-18</time>
+                            </span><span class="post-meta-words meta-item">
+                                <span class="svg-icon icon-pencil"></span>约 69 字
+                            </span>
+                            <span class="post-meta-reading meta-item">
+                                <span class="svg-icon icon-stopwatch"></span>预计阅读 1 分钟
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                </header>
+
+        <div class="article-post toc-start">
+
+            <div class="content-block content-block-first content-block-position">
+
+                <div class="post single"><div class="details toc" id="toc-static"  data-kept="">
+                        <div class="details-summary toc-title">
+                            <span>目录</span>
+                        </div>
+                        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#categories-vector">title: 向量
+date: 2020-10-31 12:20:53
+tags: Vector
+categories: Vector</a>
+      <ul>
+        <li><a href="#向量的两个视角">向量的两个视角</a></li>
+        <li><a href="#考虑起始点和不考虑起始点的向量表示方法">考虑起始点和不考虑起始点的向量表示方法</a></li>
+        <li><a href="#行向量和列向量">行向量和列向量</a></li>
+        <li><a href="#向量的运算">向量的运算</a></li>
+        <li><a href="#向量运算的基本性质">向量运算的基本性质</a></li>
+        <li><a href="#向量的模">向量的模</a></li>
+        <li><a href="#单位向量">单位向量</a></li>
+        <li><a href="#余弦定理">余弦定理</a></li>
+        <li><a href="#点乘">点乘</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                    </div><h2 id="categories-vector" class="headerLink"><a href="#categories-vector" class="header-mark"></a>title: 向量
+date: 2020-10-31 12:20:53
+tags: Vector
+categories: Vector</h2><p>向量：一串有序的数字，可以看成是一段有向的险段，也可以看成是空间中的一个点。</p>
+<h3 id="向量的两个视角" class="headerLink"><a href="#%e5%90%91%e9%87%8f%e7%9a%84%e4%b8%a4%e4%b8%aa%e8%a7%86%e8%a7%92" class="header-mark"></a>向量的两个视角</h3><ol>
+<li>有向的线段</li>
+<li>空间中的一个点</li>
+</ol>
+<h3 id="考虑起始点和不考虑起始点的向量表示方法" class="headerLink"><a href="#%e8%80%83%e8%99%91%e8%b5%b7%e5%a7%8b%e7%82%b9%e5%92%8c%e4%b8%8d%e8%80%83%e8%99%91%e8%b5%b7%e5%a7%8b%e7%82%b9%e7%9a%84%e5%90%91%e9%87%8f%e8%a1%a8%e7%a4%ba%e6%96%b9%e6%b3%95" class="header-mark"></a>考虑起始点和不考虑起始点的向量表示方法</h3><p>$$
+\overset\rightharpoonup A\\mathrm{向量}A\</p>
+<p>\overset\rightharpoonup{OA}\\mathrm{从原点}O到A
+$$</p>
+<h3 id="行向量和列向量" class="headerLink"><a href="#%e8%a1%8c%e5%90%91%e9%87%8f%e5%92%8c%e5%88%97%e5%90%91%e9%87%8f" class="header-mark"></a>行向量和列向量</h3><p>$$
+\begin{pmatrix}3&amp;4\end{pmatrix}\行向量\</p>
+<p>\begin{pmatrix}3\4\end{pmatrix}\列向量\</p>
+<p>\begin{pmatrix}3&amp;4\end{pmatrix}^T\书本列向量表示方式\<br>
+$$</p>
+<h3 id="向量的运算" class="headerLink"><a href="#%e5%90%91%e9%87%8f%e7%9a%84%e8%bf%90%e7%ae%97" class="header-mark"></a>向量的运算</h3><p>u + v</p>
+<p>k · u</p>
+<h3 id="向量运算的基本性质" class="headerLink"><a href="#%e5%90%91%e9%87%8f%e8%bf%90%e7%ae%97%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%80%a7%e8%b4%a8" class="header-mark"></a>向量运算的基本性质</h3><p>$$
+\overset\rightharpoonup u+\overset\rightharpoonup v=\overset\rightharpoonup v+\overset\rightharpoonup u\</p>
+<p>\left(k+c\right)\overset\rightharpoonup u=k\overset\rightharpoonup u+{c\overset\rightharpoonup u}\</p>
+<p>\left(\overset\rightharpoonup u+\overset\rightharpoonup v\right)+\overset\rightharpoonup w=\overset\rightharpoonup u+\left(\overset\rightharpoonup v+\overset\rightharpoonup w\right)\</p>
+<p>\left(kc\right)\overset\rightharpoonup u=k\left(c\overset\rightharpoonup u\right)\</p>
+<p>k\left(\overset\rightharpoonup u+\overset\rightharpoonup v\right)=k\overset\rightharpoonup u+k\overset\rightharpoonup v\</p>
+<p>1\overset\rightharpoonup u=\overset\rightharpoonup u\<br>
+$$</p>
+<h3 id="向量的模" class="headerLink"><a href="#%e5%90%91%e9%87%8f%e7%9a%84%e6%a8%a1" class="header-mark"></a>向量的模</h3><h3 id="单位向量" class="headerLink"><a href="#%e5%8d%95%e4%bd%8d%e5%90%91%e9%87%8f" class="header-mark"></a>单位向量</h3><p>符号表示
+标准单位向量：只有1个1和n个0组成的向量
+e1（1，0）
+e2（0，1）</p>
+<h3 id="余弦定理" class="headerLink"><a href="#%e4%bd%99%e5%bc%a6%e5%ae%9a%e7%90%86" class="header-mark"></a>余弦定理</h3><h3 id="点乘" class="headerLink"><a href="#%e7%82%b9%e4%b9%98" class="header-mark"></a>点乘</h3><p>点乘的两个公式</p>
+<p>0 垂直</p>
+<blockquote>
+<p>0 锐角
+&lt; 0 钝角</p>
+</blockquote>
+</div><footer>
+                        <div class="post">
+
+
+<div class="post-share"><div class="share-link">
+        <a class="share-icon share-twitter" href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://huxfhk.github.io/vector/" data-title=""><span class="svg-social-icon icon-twitter"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-facebook" href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://huxfhk.github.io/vector/"><span class="svg-social-icon icon-facebook"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-line" href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://huxfhk.github.io/vector/" data-title=""><span class="svg-social-icon icon-line"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-weibo" href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://huxfhk.github.io/vector/" data-title=""><span class="svg-social-icon icon-weibo"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-hackernews" href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://huxfhk.github.io/vector/" data-title=""><span class="svg-social-icon icon-hacker-news"></span></a>
+    </div></div>
+
+<div class="footer-post-author">
+    <div class="author-avatar"><a href="http://huxfhk.github.io/" target="_blank"><img alt="Hello" src="https://upagge.ru/img/ava.jpg"></a></div>
+    <div class="author-info">
+        <div class="name"><a href="http://huxfhk.github.io/" target="_blank"></a></div>
+        <div class="number-posts">Hello</span></div>
+    </div>
+</div></div>
+                </footer></div>
+        <div id="toc-final"></div>
+        </div>
+
+    
+    </article>
+    <section class="page single comments content-block-position">
+        <h1 class="display-hidden">Комментарии</h1><div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></section></div>
+
+</main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.80.0">Hugo</a> 强力驱动 | 主题 - <a href="https://ublogger.netlify.app/?utm_source=http://huxfhk.github.io/&utm_medium=footer&utm_campaign=config&utm_term=2.0.1" target="_blank" title="uBlogger 2.0.1">uBlogger</a>
+                </div><div class="footer-line"><i class="svg-icon icon-copyright"></i><span>2016 - 2021</span><span class="author">&nbsp;<a href="http://huxfhk.github.io/" target="_blank">Sean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <aside id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="svg-icon icon-arrow-up"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="svg-icon icon-comments-fixed"></i>
+            </a>
+        </aside><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["huxfhk"],"clientID":"7e5cc49d0f3fab0e3213","clientSecret":"a955315f72314060284b5ecc97b5178d6e16b22b","id":"0001-01-01T00:00:00Z","owner":"huxfhk","repo":"BlogTalk","title":""}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script><script>
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym("70532758", "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor: null 
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/70532758" style="position:absolute; left:-9999px;" alt="" /></div></noscript></body>
+</html>

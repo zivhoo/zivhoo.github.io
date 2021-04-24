@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Lua - 标签 - 一个小学生的博客</title>
+        <link>http://huxfhk.github.io/tags/lua/</link>
+        <description>Lua - 标签 - 一个小学生的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 30 Oct 2020 22:13:27 &#43;0800</lastBuildDate><atom:link href="http://huxfhk.github.io/tags/lua/" rel="self" type="application/rss+xml" /><item>
+    <title>Lua 基础函数</title>
+    <link>http://huxfhk.github.io/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Fri, 30 Oct 2020 22:13:27 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://huxfhk.github.io/lua-%E5%9F%BA%E7%A1%80%E5%87%BD%E6%95%B0/</guid>
+    <description><![CDATA[模块 load(&quot;&quot; || function [, chunkname , mode , env])  功能： 以字符串为函数体构建一个function(&hellip;)代码块编译并返回，如果第一个参数不是字符串而是function，则load会不断的调用function来获得字符串，直至function返回nil。 返回值：function(&hellip;) 错误处理：不会引发错误，返回值nil,error 因为需要额外编译（全局环境下）所以比直接定义function要慢。   loadfile([filename [, mode [, env]]])  功能：从文件加载、编译代码，返回代码块(不调用函数，函数可复用)。 返回值：function(&hellip;) 错误处理：不会引发错误，返回值nil,error   loadstring()  功能：同loadfile,只是从字符串中加载代码。 返回值：function(&hellip;) 错误处理：不会引发错误，返回值为nil,error   dofile(filename)  功能：加载、编译、执行代码块（每次调用都会执行） 返回值：代码块的返回值,无返回值即nil 错误处理：引发错误  1 2 3 4  function dofile (filename) local f = assert(loadfile(filename)) return f() end    require(modname)  功能：搜索目录加载、编译、执行代码块（多次调用只执行一次） 返回值：代码块的返回值,无返回值即true 错误处理：引发错误    元表  getmetatable]]></description>
+</item></channel>
+</rss>

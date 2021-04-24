@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>SpringBone - 标签 - 一个小学生的博客</title>
+        <link>http://huxfhk.github.io/tags/springbone/</link>
+        <description>SpringBone - 标签 - 一个小学生的博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 22 Apr 2021 14:00:08 &#43;0800</lastBuildDate><atom:link href="http://huxfhk.github.io/tags/springbone/" rel="self" type="application/rss+xml" /><item>
+    <title>Spring Bone</title>
+    <link>http://huxfhk.github.io/springbone/</link>
+    <pubDate>Thu, 22 Apr 2021 14:00:08 &#43;0800</pubDate>
+    <author>Sean</author>
+    <guid>http://huxfhk.github.io/springbone/</guid>
+    <description><![CDATA[实现现实中柔顺头发的效果
+三个主要类：SpringBone、SpringCollider、SpringManager
+SpringBone用于挂载到所有的骨骼上，最末端骨骼不需要挂载，需要保留原始动画的骨骼也不要挂载。
+  Child：下一个骨骼节点 Bone Axis：骨骼方向 Radius：骨骼的碰撞半径（仅对于spring collider的碰撞 Is Use Each Bone Force Settings：是否使用“弹簧骨骼”自己的Stiffness Force和Drag Force属性，而不是用SpringManager的设置。 Stiffness Force：弹簧回弹力 Drag Force：阻尼力 Spring Force：在世界坐标系下，作用在Spring Bone上的一个力；可以用来模拟重力或风力 Threshold：与SpringManager组件的Dynamic Ratio配合使用 Colliders：与自己发生碰撞的SpringCollider Debug  SpringMnager用于挂载到GameObject的Root节点上。
+  Dynamic Ratio：这个需要配合Spring Bone的Threshold来使用，对于每一个Spring Bone来说，当Threshold小于Dynamic Ratio时，Spring Bone才更新，否则是不更新的。 Stiffness Force：弹簧回弹力 Stiffness Curve：弹簧回弹力曲线 Drag Force：阻尼力 Drag Curve：阻尼力曲线 Spring Bones  SpringCollider可以阻挡SpringBone穿过的区域]]></description>
+</item></channel>
+</rss>
