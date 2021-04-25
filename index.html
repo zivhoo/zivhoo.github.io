@@ -11,7 +11,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://huxfhk.github.io/" />
 <meta property="og:image" content="http://huxfhk.github.io/logo.png"/>
-<meta property="og:updated_time" content="2021-04-23T00:16:03+08:00" />
+<meta property="og:updated_time" content="2021-04-25T13:22:21+08:00" />
 <meta name="application-name" content="一个小学生的博客">
 <meta name="apple-mobile-web-app-title" content="一个小学生的博客"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -134,17 +134,46 @@
 <article itemscope itemtype="http://schema.org/Article">
     <div class="summary summary-animation" style="margin-bottom:0">
         <header><div style="padding-top: 20px;padding-left: 20px;padding-right: 20px;"><h2 class="summary-title" itemprop="name headline">
+                    <a href="/editor/" target="_blank">扩展编辑器</a>
+                </h2><div class="post-meta summary-post-meta"><span class="meta-item post-category">
+                            <a href="/categories/unity/"><span class="svg-icon icon-folder"></span>Unity</a>
+                    </span><span class="meta-item post-author"><a href="http://huxfhk.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><span class="svg-icon icon-user"></span>Sean</a></span><span class="meta-item post-publish"><span class="svg-icon icon-clock"></span><time class="timeago" datetime="2021-04-23">4994-40-48</time></span></div></div>
+        </header>
+
+        <div class="article-text"><div class="content summary-content">扩展编辑器编辑器向导ScriptableWizard可以在类中定义些成员变量用来接受输入参数。
+ helpString errorString isValid    OnDrawGizmos OnWizardCreate() OnWizardOtherButton() OnWizardUpdate() 打开向导或内容被修改将调用此函数。    DisplayWizard  自定义编辑器窗口 继承自EditorWindow 类文件必须放置在Editor文件夹下 重写OnGUI方法 使用EditorWindow.GetWindow(&ldquo;Title&rdquo;);创建窗口  自定义特性或Serializable编辑器 继承自PropertyDrawer 类上添加CustomPropertyDrawer特性 重写OnGUI(Rect position, SerializedProperty property, GUIContent label)方法  出于性能原因，EditorGUILayout函数不能使用与此。
+MonoBehaviour编辑器 编辑器类名为MonoBehaviour同名+Editor 继承自Editor 类上添加CustomEditor特性 重写OnInspectorGUI或者OnSceneGUI方法  四大GUI系统 UnityEngine.GUI UnityEngine.GUILayout UnityEditor.EditorGUI UnityEditor.EditorGUILayout  其他SelectionEditorUtilityDisplayProgressBar ClearProgressBar
+UndoEditorSceneManagerEditorApplicationEditorGUILayoutBeginVertical EndVertical
+BeginHorizontal EndHorizontal
+Space()
+LabelField IntField FloatField TextField Vector2Field Vector3Field Vector4Field ObjectField
+TextArea
+Slider ProgressBar
+HelpBox
+GUILayoutLabel Button
+GUILayoutUtilityGetRect
+FileUtil提供了一些文件拷贝，移动位置等操作</div></div>
+    </div>
+
+    <div class="post-tags-summary-under-footer"><footer>
+            <div class="post-tags-summary-under-footer-display" ><a class="post-tag-summary" href="/tags/%E7%BC%96%E8%BE%91%E5%99%A8/" style="">编辑器</a></div>
+        </footer></div>
+</article>
+
+<article itemscope itemtype="http://schema.org/Article">
+    <div class="summary summary-animation" style="margin-bottom:0">
+        <header><div style="padding-top: 20px;padding-left: 20px;padding-right: 20px;"><h2 class="summary-title" itemprop="name headline">
                     <a href="/springbone/" target="_blank">Spring Bone</a>
                 </h2><div class="post-meta summary-post-meta"><span class="meta-item post-category">
-                            <a href="/categories/unity/"><span class="svg-icon icon-folder"></span>Unity</a>&nbsp;<a href="/categories/springbone/"><span class="svg-icon icon-folder"></span>SpringBone</a>
+                            <a href="/categories/unity/"><span class="svg-icon icon-folder"></span>Unity</a>
                     </span><span class="meta-item post-author"><a href="http://huxfhk.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><span class="svg-icon icon-user"></span>Sean</a></span><span class="meta-item post-publish"><span class="svg-icon icon-clock"></span><time class="timeago" datetime="2021-04-22">4994-40-48</time></span></div></div>
         </header>
 
         <div class="article-text"><div class="content summary-content">实现现实中柔顺头发的效果
 三个主要类：SpringBone、SpringCollider、SpringManager
 SpringBone用于挂载到所有的骨骼上，最末端骨骼不需要挂载，需要保留原始动画的骨骼也不要挂载。
-  Child：下一个骨骼节点 Bone Axis：骨骼方向 Radius：骨骼的碰撞半径（仅对于spring collider的碰撞 Is Use Each Bone Force Settings：是否使用“弹簧骨骼”自己的Stiffness Force和Drag Force属性，而不是用SpringManager的设置。 Stiffness Force：弹簧回弹力 Drag Force：阻尼力 Spring Force：在世界坐标系下，作用在Spring Bone上的一个力；可以用来模拟重力或风力 Threshold：与SpringManager组件的Dynamic Ratio配合使用 Colliders：与自己发生碰撞的SpringCollider Debug  SpringMnager用于挂载到GameObject的Root节点上。
-  Dynamic Ratio：这个需要配合Spring Bone的Threshold来使用，对于每一个Spring Bone来说，当Threshold小于Dynamic Ratio时，Spring Bone才更新，否则是不更新的。 Stiffness Force：弹簧回弹力 Stiffness Curve：弹簧回弹力曲线 Drag Force：阻尼力 Drag Curve：阻尼力曲线 Spring Bones  SpringCollider可以阻挡SpringBone穿过的区域</div></div>
+  Child：在骨骼链中，当前骨骼节点的下一个骨骼节点 Bone Axis： 当人物发生移动时，当前骨骼点摆动的方向。实际测试的时候当我们沿着x轴正向移动人物，Bone Axis为-1时头发会相对人物往x轴负方向移动，为1时会相对人物往x轴正方向移动。因此实际作用的时候应该是人物受力方向和Bone Axis的点积得到最终的受力大小。 Radius：骨骼的碰撞半径（仅对于spring collider的碰撞 Is Use Each Bone Force Settings：是否使用自己的Stiffness Force和Drag Force属性，不使用SpringManager中的设置。 Stiffness Force：硬度，当为0时摆动效果最强，若没有设置阻力会一直摆动。当为1时不会摆动。 Drag Force：阻尼强度，发生摆动时阻尼越大，摆动后恢复到原来的状态越慢，反之更快。 Spring Force：在世界坐标系下，作用在Spring Bone上的一个力；可以用来模拟重力或风力 Threshold：与SpringManager组件的Dynamic Ratio配合使用 Colliders：与自己发生碰撞的SpringCollider Debug  SpringMnager用于挂载到GameObject的Root节点上。
+  Dynamic Ratio：表示飘动的强度，0最小，1最大。 Stiffness Force：同SpringBone Stiffness Curve：同SpringBone Drag Force：同SpringBone Drag Curve：阻尼强度的变化曲线。 Spring Bones：需要飘动的骨骼对象，就是挂载了SpringBone的对象。  SpringCollider可以阻挡SpringBone穿过的区域</div></div>
     </div>
 
     <div class="post-tags-summary-under-footer"><footer>
@@ -157,11 +186,11 @@ SpringBone用于挂载到所有的骨骼上，最末端骨骼不需要挂载，�
         <header><div style="padding-top: 20px;padding-left: 20px;padding-right: 20px;"><h2 class="summary-title" itemprop="name headline">
                     <a href="/%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" target="_blank">前置知识</a>
                 </h2><div class="post-meta summary-post-meta"><span class="meta-item post-category">
-                            <a href="/categories/%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/"><span class="svg-icon icon-folder"></span>前置知识</a>&nbsp;<a href="/categories/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/"><span class="svg-icon icon-folder"></span>高等数学</a>
+                            <a href="/categories/%E6%95%B0%E5%AD%A6/"><span class="svg-icon icon-folder"></span>数学</a>
                     </span><span class="meta-item post-author"><a href="http://huxfhk.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><span class="svg-icon icon-user"></span>Sean</a></span><span class="meta-item post-publish"><span class="svg-icon icon-clock"></span><time class="timeago" datetime="2021-04-21">4994-40-48</time></span></div></div>
         </header>
 
-        <div class="article-text"><div class="content summary-content">常见因式分解   展开 分解     a^2 − b^2 (a+b)(a−b)   a^2 + 2ab + b^2 (a+b)(a+b)   a^2 − 2ab + b^2 (a−b)(a−b)   a^3 + b^3 (a+b)(a^2−ab+b^2)   a^3 − b^3 (a−b)(a^2+ab+b^2)   a^3 + 3a^2b + 3ab^2 + b^3 (a + b)^3   a^3 − 3a^2b + 3ab^2 − b^3 (a − b)^3    十字相乘$$ \begin{aligned} ?</div></div>
+        <div class="article-text"><div class="content summary-content">常见因式分解   展开 分解    \(a^2 − b^2\) \((a+b)(a−b)\)  \(a^2 + 2ab + b^2\) \((a+b)(a+b)\)  \(a^2 − 2ab + b^2\) \((a−b)(a−b)\)  \(a^3 + b^3\) \((a+b)(a^2−ab+b^2)\)  \(a^3 − b^3\) \((a−b)(a^2+ab+b^2)\)  \(a^3 + 3a^2b + 3ab^2 + b^3\) \((a + b)^3\)  \(a^3 − 3a^2b + 3ab^2 − b^3\) \((a − b)^3\)    十字相乘 \[ \begin{aligned} ?&amp;=12x^2 - 17x + 6\\ &amp;步骤1:拆分12与6，使得它们交叉相乘的乘积值和为第二项系数\\ &amp;\begin{vmatrix} 12&amp;6\\ &amp;\\ 3&amp;-2\\ 4&amp;-3\\ \end{vmatrix}\\ &amp;=(3x - 2)(4x - 3) \end{aligned} \]</div></div>
     </div>
 
     <div class="post-tags-summary-under-footer"><footer>
@@ -174,34 +203,25 @@ SpringBone用于挂载到所有的骨骼上，最末端骨骼不需要挂载，�
         <header><div style="padding-top: 20px;padding-left: 20px;padding-right: 20px;"><h2 class="summary-title" itemprop="name headline">
                     <a href="/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9E%81%E9%99%90/" target="_blank">函数与极限</a>
                 </h2><div class="post-meta summary-post-meta"><span class="meta-item post-category">
-                            <a href="/categories/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/"><span class="svg-icon icon-folder"></span>高等数学</a>
+                            <a href="/categories/%E6%95%B0%E5%AD%A6/"><span class="svg-icon icon-folder"></span>数学</a>
                     </span><span class="meta-item post-author"><a href="http://huxfhk.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><span class="svg-icon icon-user"></span>Sean</a></span><span class="meta-item post-publish"><span class="svg-icon icon-clock"></span><time class="timeago" datetime="2021-04-19">4994-40-48</time></span></div></div>
         </header>
 
-        <div class="article-text"><div class="content summary-content">集合名次解释 集合：具有某种性质的元素的全体。 元素：集合中的每一个。 有限集合 无限集合  集合表示大写字母表示集合A、B
+        <div class="article-text"><div class="content summary-content">集合 名次解释  集合：具有某种性质的元素的全体。 元素：集合中的每一个。 有限集合 无限集合  集合表示 大写字母表示集合A、B
 用小写字母表示元素a、b
-$$ 元素a属于集合A:a \in A\
-元素b不属于集合A:b \notin A $$
-集合表示方法-列举法 $$ \mathbb{A}=\left{a_1,a_2,a_3\right} $$
-集合表示方法-描述法 $$ \mathbb{M}=\left{x \middle| x具有的性质p\right} $$
-特殊集合表示 $$ 实数集合:\
-\mathbb{R}=\left{所有的实数\right}\
-整数集合:\
-\mathbb{Z}=\left{\cdots,-n,\cdots,-2,-1,0,1,2,\cdots,n,\cdots\right}\
-自然数集合:\
-\mathbb{N}=\left{0,1,2,3,n,\cdots\right}\
-正自然数集合:\
-\mathbb{N^+}=\left{1,2,3,n,\cdots\right}\
-有理数集合:\
-\mathbb{Q}=\left{\frac{p}{q}\middle| p\in \mathbb{Z},q \in \mathbb{N^+},p与q互质 \right}\
-$$
-集合之间的关系$$ A包含在B里\
-A \subset B,A称为B的子集。\
-集合相等\
-A=B \Leftrightarrow A \subset B且， A \supset B\
-真子集\
-A \subset B,且 A \neq B,则A就是B的真子集。A \subsetneqq B $$
-空集 $$ \emptyset $$</div></div>
+\[ 元素a属于集合A:a \in A\\ 元素b不属于集合A:b \notin A \]
+集合表示方法-列举法 \[ \mathbb{A}=\left\{a_1,a_2,a_3\right\} \]
+集合表示方法-描述法 \[ \mathbb{M}=\left\{x \middle| x具有的性质p\right\} \]
+特殊集合表示 $$ 实数集合:\ ={所有的实数}\
+整数集合:\ ={,-n,,-2,-1,0,1,2,,n,}\
+自然数集合:\ ={0,1,2,3,n,}\
+正自然数集合:\ ={1,2,3,n,}\
+有理数集合:\ ={| p,q ,p与q互质 }\ $$
+集合之间的关系 $$ A包含在B里\ A B,A称为B的子集。\
+集合相等\ A=B A B且， A B\
+真子集\ A B,且 A B,则A就是B的真子集。A B $$
+空集 \[ \emptyset \]
+并集 \[ A \cup B = \left\{x \middle| x \in A\ or\ x \in B \right\} \]</div></div>
     </div>
 
     <div class="post-tags-summary-under-footer"><footer>
@@ -214,7 +234,7 @@ A \subset B,且 A \neq B,则A就是B的真子集。A \subsetneqq B $$
         <header><div style="padding-top: 20px;padding-left: 20px;padding-right: 20px;"><h2 class="summary-title" itemprop="name headline">
                     <a href="/%E8%A7%A3%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/" target="_blank">解线性方程组</a>
                 </h2><div class="post-meta summary-post-meta"><span class="meta-item post-category">
-                            <a href="/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"><span class="svg-icon icon-folder"></span>线性代数</a>
+                            <a href="/categories/%E6%95%B0%E5%AD%A6/"><span class="svg-icon icon-folder"></span>数学</a>
                     </span><span class="meta-item post-author"><a href="http://huxfhk.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><span class="svg-icon icon-user"></span>Sean</a></span><span class="meta-item post-publish"><span class="svg-icon icon-clock"></span><time class="timeago" datetime="2021-04-15">4994-40-48</time></span></div></div>
         </header>
 
@@ -233,34 +253,17 @@ A \subset B,且 A \neq B,则A就是B的真子集。A \subsetneqq B $$
 <article itemscope itemtype="http://schema.org/Article">
     <div class="summary summary-animation" style="margin-bottom:0">
         <header><div style="padding-top: 20px;padding-left: 20px;padding-right: 20px;"><h2 class="summary-title" itemprop="name headline">
-                    <a href="/cgfunctions/" target="_blank">CGFunctions</a>
+                    <a href="/word/" target="_blank">英语单词</a>
                 </h2><div class="post-meta summary-post-meta"><span class="meta-item post-category">
-                            <a href="/categories/unknow/"><span class="svg-icon icon-folder"></span>Unknow</a>
+                            <a href="/categories/english/"><span class="svg-icon icon-folder"></span>English</a>
                     </span><span class="meta-item post-author"><a href="http://huxfhk.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><span class="svg-icon icon-user"></span>Sean</a></span><span class="meta-item post-publish"><span class="svg-icon icon-clock"></span><time class="timeago" datetime="2021-04-14">4994-40-48</time></span></div></div>
         </header>
 
-        <div class="article-text"><div class="content summary-content">数学函数   函数 功能     abs(x) 返回输入参数的绝对值   acos(x) 反余切函数，输入参数范围为[-1,1]，返回[0,π ]区间的角度值   all(x) 如果输入参数均不为0，则返回ture；否则返回flase。&amp;&amp;运算   any(x) 输入参数只要有其中一个不为0，则返回true。||运算   asin(x) 反正弦函数,输入参数取值区间为[−1,1]，返回角度值范围为$$ \begin{vmatrix} -\frac{\pi}{2}&amp;\frac{\pi}{2}\end{vmatrix} $$   atan(x) 反正切函数，返回角度值范围为,   atan2(y,x) 计算y/x 的反正切值。实际上和atan(x)函数功能完全一样，至少输入参数不同。atan(x) = atan2(x, float(1))。   ceil(x) 对输入参数向上取整。例如：ceil(float(1.3)) ，其返回值为2.0   clamp(x,a,b) 如果x 值小于a，则返回a；如果x 值大于b，返回b；否则，返回x。   cos(x) 返回弧度 x的余弦值。返回值范围为[−1,1]   cosh(x) 双曲余弦（hyperbolic cosine）函数，计算x的双曲余弦值。   cross(A,B) 返回两个三元向量的叉积(cross product)。注意，输入参数必须是三元向量！   degrees(x) 输入参数为弧度值(radians)，函数将其转换为角度值(degrees)   determinant(m) 计算矩阵的行列式因子。   dot(A,B) 返回A 和B 的点积(dot product)。参数A 和B可以是标量，也可以是向量（输入参数方面，点积和叉积函数有很大不同）。   exp(x) 计算ex的值，e= 2.</div></div>
+        <div class="article-text"><div class="content summary-content">单词 音标 释义     tint [tɪnt] n.色彩，色泽; 浅色; 气息，迹象，痕迹vt.染色; 着色于…; 染（发）   Fresnel [freiˈnel] 菲涅耳(Augustin Jean,1788-1827，法国物理学家)   Intensity [ɪnˈtensəti] n.强烈; （感情的）强烈程度; 强度; 烈度   inherit [ɪn&rsquo;herɪt] 继承   hint [hɪnt] 暗示，线索，示意   spherical [&lsquo;sferɪk(ə)l] 球形的,球面的   Cylindrical [sɪ&rsquo;lɪndrɪkəl] 圆柱形的   Obstacle [&lsquo;ɒbstək(ə)l] 障碍   avoidance [ə&rsquo;vɒɪdəns] 回避, 避开, 避免   opaque [ə(ʊ)&lsquo;peɪk] 不透明的   inefficient [ˌɪnɪˈfɪʃnt] 无效率的，无能的; 不称职的; 徒劳的   Wizard [ˈwɪzəd] n.</div></div>
     </div>
 
     <div class="post-tags-summary-under-footer"><footer>
-            <div class="post-tags-summary-under-footer-display" ><a class="post-tag-summary" href="/tags/unknow/" style="">Unknow</a></div>
-        </footer></div>
-</article>
-
-<article itemscope itemtype="http://schema.org/Article">
-    <div class="summary summary-animation" style="margin-bottom:0">
-        <header><div style="padding-top: 20px;padding-left: 20px;padding-right: 20px;"><h2 class="summary-title" itemprop="name headline">
-                    <a href="/surfaceshader/" target="_blank">SurfaceShader</a>
-                </h2><div class="post-meta summary-post-meta"><span class="meta-item post-category">
-                            <a href="/categories/unitysurfaceshader/"><span class="svg-icon icon-folder"></span>Unity,SurfaceShader</a>
-                    </span><span class="meta-item post-author"><a href="http://huxfhk.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><span class="svg-icon icon-user"></span>Sean</a></span><span class="meta-item post-publish"><span class="svg-icon icon-clock"></span><time class="timeago" datetime="2021-04-13">4994-40-48</time></span></div></div>
-        </header>
-
-        <div class="article-text"><div class="content summary-content">1 2  #pragma surface surfaceFunction lightModel [optionalparams]   </div></div>
-    </div>
-
-    <div class="post-tags-summary-under-footer"><footer>
-            <div class="post-tags-summary-under-footer-display" ><a class="post-tag-summary" href="/tags/surface/" style="">Surface</a></div>
+            <div class="post-tags-summary-under-footer-display" ><a class="post-tag-summary" href="/tags/english/" style="">English</a></div>
         </footer></div>
 </article>
 
@@ -280,8 +283,10 @@ A \subset B,且 A \neq B,则A就是B的真子集。A \subsetneqq B $$
                         <a href="/page/3/">3</a>
                     </span>
             </li><li class="page-item ">
+                <span class="page-link" aria-hidden="true">&hellip;</span>
+            </li><li class="page-item ">
                     <span class="page-link">
-                        <a href="/page/4/">4</a>
+                        <a href="/page/5/">5</a>
                     </span>
             </li></ul>
     </nav>

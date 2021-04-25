@@ -9,6 +9,6 @@
     <pubDate>Wed, 21 Apr 2021 23:18:45 &#43;0800</pubDate>
     <author>Sean</author>
     <guid>http://huxfhk.github.io/%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/</guid>
-    <description><![CDATA[常见因式分解   展开 分解     a^2 − b^2 (a+b)(a−b)   a^2 + 2ab + b^2 (a+b)(a+b)   a^2 − 2ab + b^2 (a−b)(a−b)   a^3 + b^3 (a+b)(a^2−ab+b^2)   a^3 − b^3 (a−b)(a^2+ab+b^2)   a^3 + 3a^2b + 3ab^2 + b^3 (a + b)^3   a^3 − 3a^2b + 3ab^2 − b^3 (a − b)^3    十字相乘$$ \begin{aligned} ?]]></description>
+    <description><![CDATA[常见因式分解   展开 分解    \(a^2 − b^2\) \((a+b)(a−b)\)  \(a^2 + 2ab + b^2\) \((a+b)(a+b)\)  \(a^2 − 2ab + b^2\) \((a−b)(a−b)\)  \(a^3 + b^3\) \((a+b)(a^2−ab+b^2)\)  \(a^3 − b^3\) \((a−b)(a^2+ab+b^2)\)  \(a^3 + 3a^2b + 3ab^2 + b^3\) \((a + b)^3\)  \(a^3 − 3a^2b + 3ab^2 − b^3\) \((a − b)^3\)    十字相乘 \[ \begin{aligned} ?&amp;=12x^2 - 17x + 6\\ &amp;步骤1:拆分12与6，使得它们交叉相乘的乘积值和为第二项系数\\ &amp;\begin{vmatrix} 12&amp;6\\ &amp;\\ 3&amp;-2\\ 4&amp;-3\\ \end{vmatrix}\\ &amp;=(3x - 2)(4x - 3) \end{aligned} \]]]></description>
 </item></channel>
 </rss>

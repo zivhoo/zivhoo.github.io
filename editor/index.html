@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noodp"/><title>扩展编辑器 | </title><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content=""/>
+<meta name="twitter:title" content="扩展编辑器"/>
+<meta name="twitter:description" content=""/><meta name="Description" content="记录下好玩的东西！"><meta property="og:title" content="扩展编辑器" />
+<meta property="og:description" content="扩展编辑器编辑器向导ScriptableWizard可以在类中定义些成员变量用来接受输入参数。
+ helpString errorString isValid    OnDrawGizmos OnWizardCreate() OnWizardOtherButton() OnWizardUpdate() 打开向导或内容被修改将调用此函数。    DisplayWizard  自定义编辑器窗口 继承自EditorWindow 类文件必须放置在Editor文件夹下 重写OnGUI方法 使用EditorWindow.GetWindow(&ldquo;Title&rdquo;);创建窗口  自定义特性或Serializable编辑器 继承自PropertyDrawer 类上添加CustomPropertyDrawer特性 重写OnGUI(Rect position, SerializedProperty property, GUIContent label)方法  出于性能原因，EditorGUILayout函数不能使用与此。
+MonoBehaviour编辑器 编辑器类名为MonoBehaviour同名&#43;Editor 继承自Editor 类上添加CustomEditor特性 重写OnInspectorGUI或者OnSceneGUI方法  四大GUI系统 UnityEngine.GUI UnityEngine.GUILayout UnityEditor.EditorGUI UnityEditor.EditorGUILayout  其他SelectionEditorUtilityDisplayProgressBar ClearProgressBar
+UndoEditorSceneManagerEditorApplicationEditorGUILayoutBeginVertical EndVertical
+BeginHorizontal EndHorizontal
+Space()
+LabelField IntField FloatField TextField Vector2Field Vector3Field Vector4Field ObjectField
+TextArea
+Slider ProgressBar
+HelpBox
+GUILayoutLabel Button
+GUILayoutUtilityGetRect
+FileUtil提供了一些文件拷贝，移动位置等操作" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://huxfhk.github.io/editor/" />
+<meta property="og:image" content="http://huxfhk.github.io/" />
+<meta property="article:published_time" content="2021-04-23T16:47:15+08:00" />
+<meta property="article:modified_time" content="2021-04-25T13:22:21+08:00" />
+<meta name="application-name" content="一个小学生的博客">
+<meta name="apple-mobile-web-app-title" content="一个小学生的博客"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://huxfhk.github.io/editor/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "扩展编辑器",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/huxfhk.github.io\/editor\/"
+        },"image": ["http:\/\/huxfhk.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "编辑器","wordCount":  182 ,
+        "url": "http:\/\/huxfhk.github.io\/editor\/","datePublished": "2021-04-23T16:47:15+08:00","dateModified": "2021-04-25T13:22:21+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+        "publisher": {
+            "@type": "Person",
+            "name": "", "image": [
+            {
+            "@type": "ImageObject",
+            "url": "https:\/\/upagge.ru\/img\/ava.jpg"
+            }
+            ]},"author": {
+                "@type": "Person",
+                "name": ""
+            },"description": ""
+    }
+    </script><script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "主页",
+            "item": "http:\/\/huxfhk.github.io\/"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Unity",
+            "item": "http://huxfhk.github.io/categories/unity/"
+        },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": "扩展编辑器"
+            }]
+    }
+</script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header>
+    <div class="desktop header" id="header-desktop">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="一个小学生的博客" class="header-logo logo-svg"><img loading="lazy" decoding="async"
+         class="logo"
+         src="/images/avatar.png"
+         alt="/images/avatar.png"
+         title="/images/avatar.png"
+    /><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>一个小学生的博客</a>
+            </div>
+            <div class="menu">
+                <nav>
+                    <h2 class="display-hidden">Основная навигация</h2>
+                    <ul class="menu-inner"><li>
+                            <a class="menu-item" href="/posts/"> Posts </a>
+                        </li><li>
+                            <a class="menu-item" href="/tags/"> 标签 </a>
+                        </li><li>
+                            <a class="menu-item" href="/categories/"> 类别 </a>
+                        </li><li>
+                            <a class="menu-item" href="/about/"> 关于 </a>
+                        </li></ul>
+                </nav><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <span class="svg-icon icon-search"></span>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <span class="svg-icon icon-cancel"></span>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <span class="svg-icon icon-loading"></span>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <span class="svg-icon icon-moon"></span>
+                </a>
+            </div>
+        </div>
+    </div><div class="mobile header" id="header-mobile">
+        <div class="header-container">
+            <div class="header-wrapper">
+                <div class="header-title">
+                    <a href="/" title="一个小学生的博客" class="header-logo"><img loading="lazy" decoding="async"
+         class="logo"
+         src="/images/avatar.png"
+         alt="/images/avatar.png"
+         title="/images/avatar.png"
+    /><span class="header-title-pre"><i class='fas fa-pencil-alt fa-fw'></i></span>一个小学生的博客</a>
+                </div>
+                <div class="menu-toggle" id="menu-toggle-mobile">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                        <div class="search mobile" id="search-mobile">
+                            <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                                <span class="svg-icon icon-search"></span>
+                            </a>
+                            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                                <span class="svg-icon icon-cancel"></span>
+                            </a>
+                            <span class="search-button search-loading" id="search-loading-mobile">
+                                <span class="svg-icon icon-loading"></span>
+                            </span>
+                        </div>
+                        <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                            取消
+                        </a>
+                    </div><nav>
+                    <h2 class="display-hidden">Основная навигация</h2>
+                    <ul><li>
+                            <a class="menu-item" href="/posts/" title="">Posts</a>
+                        </li><li>
+                            <a class="menu-item" href="/tags/" title="">标签</a>
+                        </li><li>
+                            <a class="menu-item" href="/categories/" title="">类别</a>
+                        </li><li>
+                            <a class="menu-item" href="/about/" title="">关于</a>
+                        </li></ul>
+                </nav>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <span class="svg-icon icon-moon"></span>
+                </a></div>
+        </div>
+    </div><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div></header><main class="main">
+<div class="container content-article page-toc theme-classic"><div class="toc" id="toc-auto">
+            <div class="toc-title">目录</div>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div>
+    
+
+    
+    
+    <article>
+    
+
+        <header class="header-post">
+
+            
+
+            
+            <div class="post-title">
+
+                    <div class="post-all-meta">
+                        <nav class="breadcrumbs">
+    <ol>
+        <li><a href="/">主页 </a></li><li><a href="/categories/unity/">Unity </a></li><li>扩展编辑器</li>
+    </ol>
+</nav>
+                        <h1 class="single-title flipInX">扩展编辑器</h1><div class="post-meta summary-post-meta"><span class="post-category meta-item">
+                                <a href="/categories/unity/"><span class="svg-icon icon-folder"></span>Unity</a>
+                            </span><span class="post-meta-date meta-item">
+                                <span class="svg-icon icon-clock"></span><time class="timeago" datetime="2021-04-23">4994-40-48</time>
+                            </span><span class="post-meta-words meta-item">
+                                <span class="svg-icon icon-pencil"></span>约 182 字
+                            </span>
+                            <span class="post-meta-reading meta-item">
+                                <span class="svg-icon icon-stopwatch"></span>预计阅读 1 分钟
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                </header>
+
+        <div class="article-post toc-start">
+
+            <div class="content-block content-block-first content-block-position">
+
+                <div class="post single"><div class="details toc" id="toc-static"  data-kept="">
+                        <div class="details-summary toc-title">
+                            <span>目录</span>
+                        </div>
+                        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#编辑器向导scriptablewizard">编辑器向导ScriptableWizard</a></li>
+    <li><a href="#自定义编辑器窗口">自定义编辑器窗口</a></li>
+    <li><a href="#自定义特性或serializable编辑器">自定义特性或Serializable编辑器</a></li>
+    <li><a href="#monobehaviour编辑器">MonoBehaviour编辑器</a></li>
+    <li><a href="#四大gui系统">四大GUI系统</a></li>
+    <li><a href="#其他">其他</a>
+      <ul>
+        <li><a href="#selection">Selection</a></li>
+        <li><a href="#editorutility">EditorUtility</a></li>
+        <li><a href="#undo">Undo</a></li>
+        <li><a href="#editorscenemanager">EditorSceneManager</a></li>
+        <li><a href="#editorapplication">EditorApplication</a></li>
+        <li><a href="#editorguilayout">EditorGUILayout</a></li>
+        <li><a href="#guilayout">GUILayout</a></li>
+        <li><a href="#guilayoututility">GUILayoutUtility</a></li>
+        <li><a href="#fileutil">FileUtil</a></li>
+        <li><a href="#help">Help</a></li>
+        <li><a href="#objectpreview">ObjectPreview</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#assetdatabase">AssetDatabase</a></li>
+        <li><a href="#特性menuitem">特性MenuItem</a></li>
+        <li><a href="#contextmenuitem">ContextMenuItem</a></li>
+        <li><a href="#contextmenu">ContextMenu</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                    </div><h1 id="扩展编辑器" class="headerLink"><a href="#%e6%89%a9%e5%b1%95%e7%bc%96%e8%be%91%e5%99%a8" class="header-mark"></a>扩展编辑器</h1><h2 id="编辑器向导scriptablewizard" class="headerLink"><a href="#%e7%bc%96%e8%be%91%e5%99%a8%e5%90%91%e5%af%bcscriptablewizard" class="header-mark"></a>编辑器向导ScriptableWizard</h2><p>可以在类中定义些成员变量用来接受输入参数。</p>
+<ul>
+<li>helpString</li>
+<li>errorString</li>
+<li>isValid</li>
+</ul>
+<hr>
+<ul>
+<li>OnDrawGizmos</li>
+<li>OnWizardCreate()</li>
+<li>OnWizardOtherButton()</li>
+<li>OnWizardUpdate() 打开向导或内容被修改将调用此函数。</li>
+</ul>
+<hr>
+<ul>
+<li>DisplayWizard</li>
+</ul>
+<h2 id="自定义编辑器窗口" class="headerLink"><a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e7%bc%96%e8%be%91%e5%99%a8%e7%aa%97%e5%8f%a3" class="header-mark"></a>自定义编辑器窗口</h2><ul>
+<li>继承自EditorWindow</li>
+<li>类文件必须放置在Editor文件夹下</li>
+<li>重写OnGUI方法</li>
+<li>使用EditorWindow.GetWindow<T>(&ldquo;Title&rdquo;);创建窗口</li>
+</ul>
+<h2 id="自定义特性或serializable编辑器" class="headerLink"><a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e7%89%b9%e6%80%a7%e6%88%96serializable%e7%bc%96%e8%be%91%e5%99%a8" class="header-mark"></a>自定义特性或Serializable编辑器</h2><ul>
+<li>继承自PropertyDrawer</li>
+<li>类上添加CustomPropertyDrawer特性</li>
+<li>重写OnGUI(Rect position, SerializedProperty property, GUIContent label)方法</li>
+</ul>
+<p><code>出于性能原因，EditorGUILayout函数不能使用与此。</code></p>
+<h2 id="monobehaviour编辑器" class="headerLink"><a href="#monobehaviour%e7%bc%96%e8%be%91%e5%99%a8" class="header-mark"></a>MonoBehaviour编辑器</h2><ul>
+<li>编辑器类名为MonoBehaviour同名+Editor</li>
+<li>继承自Editor</li>
+<li>类上添加CustomEditor特性</li>
+<li>重写OnInspectorGUI或者OnSceneGUI方法</li>
+</ul>
+<h2 id="四大gui系统" class="headerLink"><a href="#%e5%9b%9b%e5%a4%a7gui%e7%b3%bb%e7%bb%9f" class="header-mark"></a>四大GUI系统</h2><ul>
+<li>UnityEngine.GUI</li>
+<li>UnityEngine.GUILayout</li>
+<li>UnityEditor.EditorGUI</li>
+<li>UnityEditor.EditorGUILayout</li>
+</ul>
+<h2 id="其他" class="headerLink"><a href="#%e5%85%b6%e4%bb%96" class="header-mark"></a>其他</h2><h3 id="selection" class="headerLink"><a href="#selection" class="header-mark"></a>Selection</h3><h3 id="editorutility" class="headerLink"><a href="#editorutility" class="header-mark"></a>EditorUtility</h3><p>DisplayProgressBar
+ClearProgressBar</p>
+<h3 id="undo" class="headerLink"><a href="#undo" class="header-mark"></a>Undo</h3><h3 id="editorscenemanager" class="headerLink"><a href="#editorscenemanager" class="header-mark"></a>EditorSceneManager</h3><h3 id="editorapplication" class="headerLink"><a href="#editorapplication" class="header-mark"></a>EditorApplication</h3><h3 id="editorguilayout" class="headerLink"><a href="#editorguilayout" class="header-mark"></a>EditorGUILayout</h3><p>BeginVertical
+EndVertical</p>
+<p>BeginHorizontal
+EndHorizontal</p>
+<p>Space()</p>
+<p>LabelField
+IntField
+FloatField
+TextField
+Vector2Field
+Vector3Field
+Vector4Field
+ObjectField</p>
+<p>TextArea</p>
+<p>Slider
+ProgressBar</p>
+<p>HelpBox</p>
+<h3 id="guilayout" class="headerLink"><a href="#guilayout" class="header-mark"></a>GUILayout</h3><p>Label
+Button</p>
+<h3 id="guilayoututility" class="headerLink"><a href="#guilayoututility" class="header-mark"></a>GUILayoutUtility</h3><p>GetRect</p>
+<h3 id="fileutil" class="headerLink"><a href="#fileutil" class="header-mark"></a>FileUtil</h3><p>提供了一些文件拷贝，移动位置等操作</p>
+<h3 id="help" class="headerLink"><a href="#help" class="header-mark"></a>Help</h3><p>它提供了打开网页地址的功能。</p>
+<h3 id="objectpreview" class="headerLink"><a href="#objectpreview" class="header-mark"></a>ObjectPreview</h3><p>这个类提供了你当前选择的对象数据。 比如，在上面显示攻击和侦测范围的例子中，如果我们只是想让选中的单位才显示预览，那我们可以通过这个类的target来判定。</p>
+<h3 id="tools" class="headerLink"><a href="#tools" class="header-mark"></a>Tools</h3><p>这个类提供了对象批量查找功能，比如，如果我们的工具，想对某一类对象进行打包。 那我们直接使用FindObjectsOfType，拿到所有的对象即可。 TOOL还提供了实例化对象的功能。</p>
+<h3 id="assetdatabase" class="headerLink"><a href="#assetdatabase" class="header-mark"></a>AssetDatabase</h3><h3 id="特性menuitem" class="headerLink"><a href="#%e7%89%b9%e6%80%a7menuitem" class="header-mark"></a>特性MenuItem</h3><p>可以向Unity菜单栏或者Inspector添加菜单项。</p>
+<ol>
+<li>
+<p>方法规则</p>
+<ol>
+<li>主方法必须是<code>static</code></li>
+<li>验证方法除了返回值<code>bool</code>、方法名必须Validate+主方法名，特性第二个参数为true外，其他与主方法一致。（可选项）</li>
+</ol>
+</li>
+<li>
+<p>快捷键及特殊按键</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%</td>
+<td>Ctrl或Command</td>
+<td>MenuItem(&ldquo;xxx/xxx %m&rdquo;)</td>
+</tr>
+<tr>
+<td>#</td>
+<td>Shift</td>
+<td>MenuItem(&ldquo;xxx/xxx #m&rdquo;)</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>Alt</td>
+<td>MenuItem(&ldquo;xxx/xxx &amp;m&rdquo;)</td>
+</tr>
+<tr>
+<td>_</td>
+<td>单按键</td>
+<td>MenuItem(&ldquo;xxx/xxx _m&rdquo;)</td>
+</tr>
+</tbody>
+</table>
+<p>LEFT、RIGHT、UP、DOWN、F1~F12、HOME、END、PGUP 和 PGDN</p>
+</li>
+<li>
+<p>特殊菜单路径</p>
+<ul>
+<li>GameObject/xxx</li>
+<li>Assets/xxx</li>
+<li>CONTEXT/ComponentClass/xxx,可将Component当做参数传递到方法中</li>
+</ul>
+</li>
+</ol>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 菜单项及校验
+[MenuItem(&#34;Custom/Menu0&#34;)]
+static void Menu0(){}
+[MenuItem(&#34;Custom/Menu0&#34;, true)]
+static bool ValidateMenu0()
+{
+    return 1 == 1;
+}
+
+// 设置快捷键 Ctrl或Command + Shift + m
+[MenuItem(&#34;Custom/Menu1 %#m&#34;)]
+static void Menu1(){}
+
+// 给Transform组件添加Menu2菜单，并将Transform传递过来
+[MenuItem(&#34;CONTEXT/Transform/Menu2&#34;)]
+static void Menu2(MenuCommand cmd)
+{
+    Transform trans = cmd.context as Transform;
+
+    GameObject go = new GameObject(&#34;Custom Game Object&#34;);
+    GameObjectUtility.SetParentAndAlign(go, trans.gameObject);
+    Undo.RegisterCreatedObjectUndo(go, &#34;Create &#34; + go.name);
+    Selection.activeObject = go;
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="contextmenuitem" class="headerLink"><a href="#contextmenuitem" class="header-mark"></a>ContextMenuItem</h3><h3 id="contextmenu" class="headerLink"><a href="#contextmenu" class="header-mark"></a>ContextMenu</h3></div><footer>
+                        <div class="post">
+
+
+<div class="post-share"><div class="share-link">
+        <a class="share-icon share-twitter" href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://huxfhk.github.io/editor/" data-title="扩展编辑器" data-hashtags="编辑器"><span class="svg-social-icon icon-twitter"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-facebook" href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://huxfhk.github.io/editor/" data-hashtag="编辑器"><span class="svg-social-icon icon-facebook"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-line" href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://huxfhk.github.io/editor/" data-title="扩展编辑器"><span class="svg-social-icon icon-line"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-weibo" href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://huxfhk.github.io/editor/" data-title="扩展编辑器"><span class="svg-social-icon icon-weibo"></span></a>
+    </div><div class="share-link">
+        <a class="share-icon share-hackernews" href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://huxfhk.github.io/editor/" data-title="扩展编辑器"><span class="svg-social-icon icon-hacker-news"></span></a>
+    </div></div>
+
+<div class="footer-post-author">
+    <div class="author-avatar"><a href="http://huxfhk.github.io/" target="_blank"><img alt="Hello" src="https://upagge.ru/img/ava.jpg"></a></div>
+    <div class="author-info">
+        <div class="name"><a href="http://huxfhk.github.io/" target="_blank"></a></div>
+        <div class="number-posts">Hello</span></div>
+    </div>
+</div><div class="post-tags"><a href="/tags/%E7%BC%96%E8%BE%91%E5%99%A8/" class="tag">编辑器</a></div></div>
+                </footer></div>
+        <div id="toc-final"></div>
+        </div>
+
+    
+    </article>
+    <section class="page single comments content-block-position">
+        <h1 class="display-hidden">Комментарии</h1><div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></section></div>
+
+</main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.80.0">Hugo</a> 强力驱动 | 主题 - <a href="https://ublogger.netlify.app/?utm_source=http://huxfhk.github.io/&utm_medium=footer&utm_campaign=config&utm_term=2.0.1" target="_blank" title="uBlogger 2.0.1">uBlogger</a>
+                </div><div class="footer-line"><i class="svg-icon icon-copyright"></i><span>2016 - 2021</span><span class="author">&nbsp;<a href="http://huxfhk.github.io/" target="_blank">Sean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <aside id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="svg-icon icon-arrow-up"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="svg-icon icon-comments-fixed"></i>
+            </a>
+        </aside><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["huxfhk"],"clientID":"7e5cc49d0f3fab0e3213","clientSecret":"a955315f72314060284b5ecc97b5178d6e16b22b","id":"2021-04-23T16:47:15+08:00","owner":"huxfhk","repo":"BlogTalk","title":"扩展编辑器"}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script><script>
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym("70532758", "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor: null 
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/70532758" style="position:absolute; left:-9999px;" alt="" /></div></noscript></body>
+</html>

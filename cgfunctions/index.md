@@ -8,7 +8,7 @@
 |acos(x)|反余切函数，输入参数范围为[-1,1]，返回[0,π ]区间的角度值|
 |all(x) |如果输入参数均不为0，则返回ture；否则返回flase。&&运算|
 |any(x) |输入参数只要有其中一个不为0，则返回true。\|\|运算|
-|asin(x)| 反正弦函数,输入参数取值区间为[−1,1]，返回角度值范围为$$ \begin{vmatrix} -\frac{\pi}{2}&\frac{\pi}{2}\end{vmatrix} $$|
+|asin(x)| 反正弦函数,输入参数取值区间为[−1,1]，返回角度值范围为$\begin{vmatrix} -\frac{\pi}{2}&\frac{\pi}{2}\end{vmatrix}$|
 |atan(x)|反正切函数，返回角度值范围为,|
 |atan2(y,x) |计算y/x 的反正切值。实际上和atan(x)函数功能完全一样，至少输入参数不同。atan(x) = atan2(x, float(1))。|
 |ceil(x)| 对输入参数向上取整。例如：ceil(float(1.3)) ，其返回值为2.0|
@@ -41,7 +41,7 @@
 |mul(M, v)| 计算矩阵和向量相乘|
 |mul(v, M)| 计算向量和矩阵相乘|
 |noise( x)| 噪声函数，返回值始终在0，1 之间；对于同样的输入，始终返回相同的值（也就是说，并不是真正意义上的随机噪声）。|
-|pow(x, y)| x^y|
+|pow(x, y)|$x^y$|
 |radians(x)| 函数将角度值转换为弧度值|
 |round(x)| Round-to-nearest，或closest integer to x 即四舍五入。|
 |rsqrt(x)| X 的反平方根，x 必须大于0|
@@ -51,11 +51,11 @@
 |sincos(float x,out s, out c)|该函数是同时计算x 的sin 值和cos 值，其中s=sin(x)，c=cos(x)。该函数用于“同时需要计算sin 值和cos 值的情况”，比分别运算要快很多!|
 |sinh(x)| 计算双曲正弦（hyperbolic sine）值。|
 |smoothstep(min,max, x)|值x 位于min、max 区间中。如果x=min，返回0；如果x=max，返回1；如果x 在两者之间，按照下列公式返回数据：
-2*( min )3 3*( min )2
+$2*( min )3 3*( min )2
 max min max min
 x − x −
 − +
-− −|
+− −$|
 |step(a, x)| 如果x<a，返回0；否则，返回1。|
 |sqrt(x)|求x 的平方根， x ，x 必须大于0。|
 |tan(x)| 输入参数为弧度，计算正切值|
